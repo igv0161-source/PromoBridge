@@ -87,6 +87,13 @@ footer{border-color:#ffffff20}.reveal{opacity:0;transform:translate3d(0,48px,0) 
 @media(max-width:600px){.hero{width:calc(100% - 36px);padding:48px 0 55px;gap:28px}.hero h1{font-size:clamp(3.05rem,14vw,5.1rem);line-height:.88}.hero p{font-size:.93rem}.hero-proof{margin-top:28px}.hero-proof>div{flex:1 1 28%;min-width:90px}.hero-visual{padding-top:0}.scene-viewport{height:390px;min-height:340px}.scene-node{min-height:58px;gap:4px;flex-direction:column;font-size:.55rem}.scene-node span{font-size:.59rem}.scene-caption{left:16px;right:16px;bottom:15px}.scene-topline{font-size:.49rem}.scene-foot{font-size:.45rem}}
 @media(prefers-reduced-motion:reduce){.scene-node{transition:none}}
 
+
+.scene-viewport.scene-fallback{background:radial-gradient(circle at 50% 45%,#1a4660 0,#102239 28%,#080d17 70%);background-size:180% 180%;animation:pbFallbackPulse 8s ease-in-out infinite alternate}
+.scene-viewport.scene-fallback .scene-crosshair{width:46%;border-color:#72e7ff65;box-shadow:0 0 55px #72e7ff24,inset 0 0 45px #72e7ff13}
+.scene-viewport.scene-fallback .scene-crosshair:before{background:#72e7ff55;box-shadow:0 0 20px #72e7ff}
+.scene-viewport.scene-fallback .scene-crosshair:after{background:#9272ff55;box-shadow:0 0 20px #9272ff}
+@keyframes pbFallbackPulse{from{background-position:35% 45%}to{background-position:65% 55%}}
+
 </style>
 </head>
 <body><div id="pb-progress" aria-hidden="true"></div><div id="pb-cursor" aria-hidden="true"></div>
