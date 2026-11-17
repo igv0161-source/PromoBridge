@@ -165,6 +165,54 @@ input,select,textarea{border-radius:4px;border-color:#34445b;background:#080e19}
 footer{border-color:#ffffff20}#pb-progress{position:fixed;top:0;left:0;width:100%;height:2px;z-index:100;background:linear-gradient(90deg,#72e7ff,#9272ff);transform:scaleX(0);transform-origin:left}
 @media(max-width:600px){header{min-height:76px}.panel{padding:18px}.tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.tabs button{width:100%}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+
+/* PROMOBRIDGE / WORKSPACE LAYOUT REDESIGN */
+.wrap{width:min(1240px,calc(100% - 48px));padding-bottom:50px}
+header{position:sticky;top:0;z-index:30;padding:16px max(0px,calc((100vw - 1240px)/2));background:#070910e8;backdrop-filter:blur(20px)}
+header .row{gap:14px}
+#setup,#auth{margin:34px auto 70px;max-width:980px;padding:clamp(24px,4vw,48px)}
+#setup{max-width:760px;background:linear-gradient(135deg,#14243a,#0b111d);border-top:2px solid var(--accent)}
+#setup h2{font:800 clamp(1.7rem,4vw,2.7rem)/1.05 Manrope,system-ui;letter-spacing:-.055em}
+#auth h1{font:800 clamp(2.5rem,6vw,4.7rem)/.95 Manrope,system-ui;letter-spacing:-.075em;max-width:680px;margin:0 0 14px}
+#auth>p{max-width:680px;line-height:1.8}
+#auth .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:28px}
+#auth .grid>div{padding:clamp(18px,3vw,30px);background:linear-gradient(145deg,#111e30,#0a101c);border:1px solid #ffffff20;min-width:0}
+#auth .grid>div:first-child{border-top:2px solid var(--accent)}
+#auth .grid>div:last-child{border-top:2px solid var(--purple)}
+#auth h2{font:800 1.25rem Manrope,system-ui;letter-spacing:-.04em}
+#app>.panel:first-child{padding:clamp(22px,3.5vw,38px);margin-top:26px}
+#hello{font:800 clamp(2.5rem,6vw,4.8rem)/.96 Manrope,system-ui;letter-spacing:-.08em;margin:0}
+#roleInfo{margin:12px 0 0;max-width:680px;line-height:1.8}
+.tabs{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;padding:18px 0 5px;margin:20px 0 0;scrollbar-width:thin}
+.tabs button{flex:0 0 auto;min-height:44px;padding:10px 17px}
+#app>section.panel{padding:clamp(22px,3vw,34px);margin:16px 0 22px}
+#app>section.panel>h2{font:800 clamp(1.45rem,3vw,2rem) Manrope,system-ui;letter-spacing:-.055em;margin:0 0 8px}
+#profileForm{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+#profileForm .row{grid-column:1/-1}
+#bookings #newBooking{margin-top:24px;padding-top:22px;border-top:1px solid #ffffff20}
+#chat .chat-layout{grid-template-columns:minmax(220px,.72fr) minmax(0,1.5fr);gap:14px;margin-top:18px}
+#chat .chat-box{background:#090f1a;border:1px solid #ffffff1c;padding:16px;min-width:0}
+#chat .chat-thread{min-height:340px;max-height:55vh}
+#chat .chat-compose textarea{font-size:16px}
+.item{padding:18px}
+button,.btn{min-height:44px;touch-action:manipulation}
+input,select,textarea{min-height:48px;font-size:16px}
+@media(max-width:760px){
+ .wrap{width:calc(100% - 28px)}header{min-height:72px;padding:12px 0}
+ #auth .grid,#profileForm{grid-template-columns:1fr}
+ #profileForm .row{grid-column:auto}
+ #chat .chat-layout{grid-template-columns:1fr}
+ #chat .chat-thread{height:320px;max-height:48vh}
+ #app>section.panel{padding:19px}
+ .tabs{margin-inline:-3px}
+}
+@media(max-width:420px){
+ .wrap{width:calc(100% - 22px)}
+ header .brand{font-size:20px}#who{max-width:110px;overflow-wrap:anywhere}
+ #setup,#auth{padding:20px 16px;margin:20px auto 45px}
+ .tabs button{padding:9px 12px;font-size:12px}
+}
+
 </style></head><body><div id="pb-progress" aria-hidden="true"></div><div class="wrap">
 <header><a class="brand" href="index.html" style="text-decoration:none">Promo<span>Bridge</span> <small>PORTAL</small></a><div class="row"><span id="who" class="muted"></span><button id="logout" class="btn alt hidden">Log out</button></div></header>
 <section id="setup" class="panel"><h2>Connect your PromoBridge database</h2><p class="muted">Enter your Supabase project URL and public anon key. These are intended for browser use; never paste a service-role key here.</p><label>Supabase Project URL</label><input id="sbUrl" placeholder="https://YOUR-PROJECT.supabase.co"><label>Supabase anon/public key</label><input id="sbKey" placeholder="sb_publishable_... or legacy anon key"><button class="btn" id="saveConfig">Connect</button><p id="setupMsg" class="muted"></p></section>
