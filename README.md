@@ -30,6 +30,8 @@ The 3D scene loads Three.js from jsDelivr and therefore requires an internet con
 - Admin-only proof review and restricted contact-review panel.
 - Private business/creator chat with realtime message refresh.
 - Payments workspace with server-created Cashfree checkout orders, signed webhook verification and provider-confirmed payment history (merchant credentials/onboarding still required).
+- Separate Admin owner-wallet ledger alongside creator and business wallet accounts. Production payment confirmation plus a paid creator payout creates a pending commission entry; an administrator must reconcile the provider settlement reference before it becomes a posted ledger balance.
+- New campaign bookings use an 8% platform commission set by the database. Existing campaign agreements retain their stored historical commission rate.
 - 24-hour business proof review followed by final admin approval; final approval creates a commission-split payout record.
 - Detected phone numbers are redacted from participant-visible messages; detected originals are restricted to admin review.
 
@@ -37,7 +39,7 @@ The 3D scene loads Three.js from jsDelivr and therefore requires an internet con
 
 Supabase project ref: `zjwfavkhymypkvhlpuva`.
 
-- Row Level Security is enabled on all ten public tables, including the payment transaction and provider-event tables.
+- Row Level Security is enabled on all public tables, including payment, provider-event and wallet tables.
 - Anonymous table privileges have been revoked.
 - Signed-in users can discover only approved profiles plus their own profile; administrators can review all profiles.
 - Only approved business accounts can create campaign requests for approved creators.
@@ -54,6 +56,7 @@ Phone-number detection is best-effort pattern matching, not a guarantee against 
 
 - Live payment processing until merchant onboarding, provider approval and secure credentials are completed.
 - Creator bank/UPI/PayPal payouts or automatic transfers; payout records are tracking-only until an approved payout integration is connected.
+- Admin wallet withdrawals, user-to-user transfers, and wallet top-ups. The owner wallet is an internal accounting ledger, not a bank account or stored-value payment instrument.
 - PayPal, Stripe and crypto checkout (not connected).
 - Social account OAuth or automatic publishing.
 - Guaranteed creator reach, sales or campaign outcomes.
@@ -97,4 +100,4 @@ A full browser/device end-to-end test has not yet been completed. Cashfree sandb
 
 ## Security follow-up
 
-Supabase currently reports **Leaked Password Protection Disabled**. Enable leaked-password protection in Supabase Auth password security settings before inviting public users. The performance advisor also reports 14 indexes not yet used; they were retained because the current database has very little activity and removing them would be premature.
+Supabase currently reports **Leaked Password Protection Disabled**. Enable leaked-password protection in Supabase Auth password security settings before inviting public users. The performance advisor reports 19 indexes not yet used; they were retained because the current database has very little activity and removing them would be premature.
