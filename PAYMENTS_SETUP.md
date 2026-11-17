@@ -54,7 +54,7 @@ Add these names with the values issued by Cashfree:
 
 - `CASHFREE_CLIENT_ID`
 - `CASHFREE_CLIENT_SECRET`
-- `CASHFREE_WEBHOOK_SECRET` — the signing secret Cashfree specifies for payment webhooks.
+- `CASHFREE_WEBHOOK_SECRET` — set this to the Cashfree Client Secret used by its PG webhook signature verifier (the same secret as `CASHFREE_CLIENT_SECRET` unless Cashfree gives your account a separate webhook secret).
 - `CASHFREE_ENV` = `sandbox`
 
 Do not paste credentials into ChatGPT, GitHub, README files, browser code or public issues. Never expose the Supabase service-role key.
