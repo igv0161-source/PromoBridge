@@ -179,9 +179,11 @@ button.pb-tap,.btn.pb-tap,input[type=submit].pb-tap,input[type=button].pb-tap,a.
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
 let sb=null, user=null, profile=null, activeConversation=null, chatChannel=null;
+const DEFAULT_SUPABASE_URL='https://zjwfavkhymypkvhlpuva.supabase.co';
+const DEFAULT_SUPABASE_PUBLIC_KEY='sb_publishable_pErD4Dvnp1iyVYsTp8PQMg_jUdNqIkK';
 const $=id=>document.getElementById(id), msg=(id,t,cls='muted')=>{ $(id).textContent=t;$(id).className=cls; };
 function show(id){['setup','auth','app'].forEach(x=>$(x).classList.toggle('hidden',x!==id));}
-function config(){let u=localStorage.getItem('pb_url'),k=localStorage.getItem('pb_key');if(!u||!k){show('setup');return;} if(!window.supabase){msg('globalMsg','Could not load Supabase library. Check your internet connection.','danger');show('setup');return;} sb=window.supabase.createClient(u,k);show('auth');sb.auth.getSession().then(({data})=>{if(data.session)start(data.session.user);});}
+function config(){let u=localStorage.getItem('pb_url')||DEFAULT_SUPABASE_URL,k=localStorage.getItem('pb_key')||DEFAULT_SUPABASE_PUBLIC_KEY;if(!window.supabase){msg('globalMsg','Could not load the database library. Check your internet connection and reload.','danger');show('setup');return;}sb=window.supabase.createClient(u,k);show('auth');sb.auth.getSession().then(({data})=>{if(data.session)start(data.session.user);});}
 $('saveConfig').onclick=()=>{let u=$('sbUrl').value.trim(),k=$('sbKey').value.trim();if(!u.startsWith('https://')||!k){msg('setupMsg','Enter a valid project URL and public anon key.','danger');return;}localStorage.setItem('pb_url',u);localStorage.setItem('pb_key',k);config();};
 $('signup').onsubmit=async e=>{e.preventDefault();let f=new FormData(e.target),role=f.get('role');let {data,error}=await sb.auth.signUp({email:f.get('email'),password:f.get('password'),options:{data:{display_name:f.get('name'),role,city:f.get('city'),instagram_handle:f.get('instagram'),niche:f.get('niche')}}});if(error){msg('authMsg',error.message,'danger');return;}msg('authMsg',data.session?'Account created.':'Account created. Check your email to confirm, then sign in.','success');};
 $('login').onsubmit=async e=>{e.preventDefault();let f=new FormData(e.target);let {data,error}=await sb.auth.signInWithPassword({email:f.get('email'),password:f.get('password')});if(error){msg('authMsg',error.message,'danger');return;}start(data.user);};
