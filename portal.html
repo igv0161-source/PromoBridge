@@ -280,12 +280,15 @@ async function loadBookings(){
  let {data,error}=await q;let el=$('bookingList');el.replaceChildren();
  if(error){el.textContent='Could not load bookings: '+error.message;return;}
  if(!data?.length){el.textContent='No bookings yet.';return;}
+ const {data:paymentRows}=await sb.from('payment_transactions').select('booking_id,status').in('booking_id',data.map(x=>x.id));
+ const paidBookingIds=new Set((paymentRows||[]).filter(x=>x.status==='paid').map(x=>x.booking_id));
  for(const booking of data){
   const card=document.createElement('div');card.className='item';
   const title=document.createElement('b');title.textContent=booking.brief||'Promotion booking';
   const meta=document.createElement('p');meta.className='muted';meta.textContent='Booking ID: '+booking.id+' · Amount: ₹'+Number(booking.total_amount).toLocaleString()+' · Status: '+booking.status;
   card.append(title,meta);
-  if(profile.role==='business'&&['accepted','in_progress'].includes(booking.status)){
+  if(profile.role==='business'&&paidBookingIds.has(booking.id)){const paid=document.createElement('p');paid.className='success';paid.textContent='Payment confirmed by provider';card.append(paid);}
+  if(profile.role==='business'&&!paidBookingIds.has(booking.id)&&['accepted','in_progress'].includes(booking.status)){
    const payWrap=document.createElement('div');payWrap.className='row';payWrap.style.marginTop='12px';
    const phone=document.createElement('input');phone.type='tel';phone.inputMode='tel';phone.placeholder='Mobile number with country code';phone.setAttribute('aria-label','Mobile number for payment checkout');phone.style.maxWidth='280px';
    const pay=document.createElement('button');pay.type='button';pay.className='btn';pay.textContent='Pay campaign securely';
