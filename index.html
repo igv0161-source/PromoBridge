@@ -94,6 +94,66 @@ footer{border-color:#ffffff20}.reveal{opacity:0;transform:translate3d(0,48px,0) 
 .scene-viewport.scene-fallback .scene-crosshair:after{background:#9272ff55;box-shadow:0 0 20px #9272ff}
 @keyframes pbFallbackPulse{from{background-position:35% 45%}to{background-position:65% 55%}}
 
+
+/* PROMOBRIDGE / CINEMATIC TYPE & DEPTH PASS */
+:root{--cyan:#7beaff;--blue:#4e9dff;--violet:#a18bff}
+html{font-size:16px}
+body{font-size:clamp(15px,1.02vw,17px);line-height:1.68}
+.wrap{width:min(1320px,calc(100% - 64px))}
+header{padding-inline:max(32px,calc((100vw - 1320px)/2))}
+.nav{font-size:.82rem;gap:clamp(16px,2.2vw,32px)}
+.hero{width:min(1480px,calc(100% - 72px));min-height:calc(100svh - 78px);grid-template-columns:minmax(0,.88fr) minmax(440px,1.12fr);gap:clamp(28px,4vw,68px);padding:clamp(38px,6vh,76px) 0}
+.hero-copy{max-width:720px}
+.hero h1{font-size:clamp(3.3rem,6.15vw,6.6rem);line-height:.91;letter-spacing:-.078em;max-width:760px;margin:22px 0}
+.hero p{font-size:clamp(.94rem,1.15vw,1.08rem);line-height:1.78;max-width:470px}
+.eyebrow{font-size:clamp(.62rem,.72vw,.72rem);letter-spacing:.19em}
+section{padding:clamp(76px,9vw,132px) 0}
+section h2,.final-cta h2{font-size:clamp(2.15rem,4.7vw,4.8rem);line-height:.99;letter-spacing:-.07em}
+section h3{font-size:clamp(1.12rem,1.65vw,1.48rem);line-height:1.18;letter-spacing:-.035em}
+section p,.card p,.step p{font-size:clamp(.9rem,1vw,1rem);line-height:1.75}
+.pill{font-size:.82rem;padding:13px 21px;min-height:46px}
+.hero-visual{perspective:1200px}
+.scene-viewport{height:clamp(420px,43vw,650px);border-color:#7beaff36;background:radial-gradient(ellipse at 50% 44%,#1a58758c,transparent 38%),radial-gradient(ellipse at 78% 15%,#4b2e8c55,transparent 36%),linear-gradient(145deg,#101d30,#070a13 72%);box-shadow:0 35px 110px #0009,inset 0 0 80px #72dfff0b}
+.scene-viewport:before{background-size:34px 34px;opacity:.8}
+.scene-crosshair{width:64%;border-color:#7beaff26;box-shadow:0 0 85px #4bcfff14,inset 0 0 65px #4bcfff0a}
+.scene-caption strong{font-size:clamp(1.7rem,3vw,2.6rem)}
+.scene-caption p{font-size:clamp(.74rem,.9vw,.88rem)}
+.scene-node{font-size:.66rem;min-height:60px}
+.scene-node span{font-size:.77rem}
+.scene-foot{font-size:.55rem}
+.footer-contact{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.footer-contact span{color:var(--cyan);font-size:.6rem;letter-spacing:.18em;font-weight:800}
+.footer-contact a{color:#eaf7ff;font-size:.88rem;border-bottom:1px solid #7beaff66;padding-bottom:2px}
+.footer-contact a:hover{color:var(--cyan)}
+.final-cta .eyebrow{color:var(--cyan)!important}
+@media(max-width:950px){
+ .wrap{width:calc(100% - 44px)}
+ header{padding-inline:22px}
+ .hero{width:calc(100% - 48px);grid-template-columns:1fr;gap:26px;padding:48px 0 64px}
+ .hero-copy{max-width:850px}.hero h1{font-size:clamp(3.6rem,9vw,6.4rem);max-width:900px}
+ .hero-visual{width:min(820px,100%);margin:0 auto}
+ .scene-viewport{height:clamp(390px,66vw,580px)}
+}
+@media(max-width:600px){
+ html{font-size:15px}.wrap{width:calc(100% - 32px)}
+ header{height:68px;padding-inline:16px}.brand{font-size:1.15rem}.nav{gap:12px;font-size:.72rem}
+ .hero{width:calc(100% - 34px);padding:38px 0 48px;gap:24px}
+ .hero h1{font-size:clamp(3.15rem,13.5vw,5rem);line-height:.9;margin:17px 0}
+ .hero p{font-size:.94rem;line-height:1.7}
+ .eyebrow{font-size:.58rem;letter-spacing:.15em}
+ .hero-actions{gap:9px}.pill{padding:12px 16px;font-size:.78rem}
+ .hero-proof{gap:12px}.hero-proof>div{min-width:0;flex:1 1 28%}.hero-proof strong{font-size:.95rem}
+ section{padding:72px 0}section h2,.final-cta h2{font-size:clamp(2.05rem,9vw,3.4rem);line-height:1}
+ .scene-viewport{height:410px;min-height:370px}
+ .scene-caption strong{font-size:1.7rem}.scene-caption p{font-size:.76rem}
+ .scene-node{min-height:58px}.scene-node span{font-size:.65rem}
+ footer{gap:16px!important;font-size:.8rem!important}
+ .footer-contact{align-items:flex-start;flex-direction:column;gap:4px}
+ .footer-contact a{font-size:.83rem;overflow-wrap:anywhere}
+}
+@media(max-width:380px){.hero h1{font-size:3rem}.scene-viewport{height:370px}.nav{gap:8px}}
+@media(prefers-reduced-motion:reduce){.scene-viewport.scene-fallback{animation:none}}
+
 </style>
 </head>
 <body><div id="pb-progress" aria-hidden="true"></div><div id="pb-cursor" aria-hidden="true"></div>
@@ -128,7 +188,7 @@ footer{border-color:#ffffff20}.reveal{opacity:0;transform:translate3d(0,48px,0) 
 <section class="wrap"><div class="section-head"><div><div class="eyebrow">The important details</div><h2>Clear from the start.</h2></div></div><div class="faq"><article><h3>Is PromoBridge only for large creators?</h3><p>The platform is intended for creators and businesses to connect around relevant collaborations. Fit and campaign terms should be discussed directly.</p></article><article><h3>Are prices fixed?</h3><p>No. Pricing, deliverables and timelines are agreed between both parties before a campaign is confirmed.</p></article><article><h3>Does the portal process payments?</h3><p>Payments are not enabled yet. A profile, message or campaign discussion is not a completed booking or payment.</p></article><article><h3>Are views or sales guaranteed?</h3><p>No. Performance depends on content, audience, platform distribution and many other factors.</p></article></div></section>
 <section class="wrap"><div class="final-cta"><div><div class="eyebrow" style="color:#536d26">Your next chapter starts here</div><h2>Bring your creativity. We'll make room for the connection.</h2><p>Join PromoBridge as a creator or a business.</p></div><a class="pill" href="portal.html">Enter PromoBridge ↗</a></div></section>
 </main>
-<footer class="wrap"><div><span class="footer-brand">PromoBridge.</span> &nbsp;Built around creative collaboration.</div><div><a href="portal.html">Portal</a> &nbsp;·&nbsp; <a href="#creator">Creator space</a> &nbsp;·&nbsp; <a href="#opportunity">For brands</a></div><div>© <span id="year"></span> PromoBridge</div></footer>
+<footer class="wrap"><div><span class="footer-brand">PromoBridge.</span> &nbsp;Built around creative collaboration.</div><div><a href="portal.html">Portal</a> &nbsp;·&nbsp; <a href="#creator">Creator space</a> &nbsp;·&nbsp; <a href="#opportunity">For brands</a></div><div class="footer-contact"><span>ENQUIRIES</span> <a href="mailto:singareaaditya111@gmail.com">singareaaditya111@gmail.com</a></div><div>© <span id="year"></span> PromoBridge</div></footer>
 <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
 <script>
 const reveal=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');reveal.unobserve(e.target)}}),{threshold:.1});
@@ -161,11 +221,14 @@ document.querySelectorAll('section,.ticker,.final-cta').forEach(el=>{el.classLis
    const key=new THREE.PointLight(0x72e7ff,28,18);key.position.set(3,3,5);scene.add(key);
    const violet=new THREE.PointLight(0x9272ff,18,16);violet.position.set(-3,-2,2);scene.add(violet);
    group=new THREE.Group();scene.add(group);
-   const core=new THREE.Mesh(new THREE.IcosahedronGeometry(.72,2),new THREE.MeshStandardMaterial({color:0x10283b,metalness:.65,roughness:.24,emissive:0x0b3047,emissiveIntensity:.8,wireframe:false}));
+   const core=new THREE.Mesh(new THREE.SphereGeometry(.76,64,48),new THREE.MeshPhysicalMaterial({color:0x163d58,metalness:.42,roughness:.12,transmission:.28,thickness:1.1,ior:1.32,clearcoat:1,clearcoatRoughness:.08,emissive:0x0b3855,emissiveIntensity:.72}));
    group.add(core);
-   const coreWire=new THREE.Mesh(new THREE.IcosahedronGeometry(.79,1),new THREE.MeshBasicMaterial({color:0x72e7ff,wireframe:true,transparent:true,opacity:.42}));group.add(coreWire);
-   const ringMat=new THREE.MeshBasicMaterial({color:0x72e7ff,transparent:true,opacity:.42});
-   for(let i=0;i<3;i++){const ring=new THREE.Mesh(new THREE.TorusGeometry(2.05+i*.12,.006,6,140),new THREE.MeshBasicMaterial({color:i===1?0x9272ff:0x72e7ff,transparent:true,opacity:.44-i*.06}));ring.rotation.x=Math.PI/2+(i-1)*.48;ring.rotation.y=(i-1)*.42;group.add(ring);}
+   const inner=new THREE.Mesh(new THREE.IcosahedronGeometry(.48,2),new THREE.MeshStandardMaterial({color:0x8deeff,metalness:.8,roughness:.18,emissive:0x1a8cb4,emissiveIntensity:1.1}));
+   group.add(inner);
+   const coreWire=new THREE.Mesh(new THREE.IcosahedronGeometry(.88,2),new THREE.MeshBasicMaterial({color:0x9befff,wireframe:true,transparent:true,opacity:.25}));group.add(coreWire);
+   const halo=new THREE.Mesh(new THREE.SphereGeometry(1.04,40,32),new THREE.MeshBasicMaterial({color:0x4ecfff,transparent:true,opacity:.045,side:THREE.BackSide}));group.add(halo);
+   for(let i=0;i<5;i++){const ring=new THREE.Mesh(new THREE.TorusGeometry(2.05+i*.075,.009,8,180),new THREE.MeshBasicMaterial({color:i%2?0xa18bff:0x72e7ff,transparent:true,opacity:.5-i*.055}));ring.rotation.x=Math.PI/2+(i-2)*.31;ring.rotation.y=(i-2)*.29;ring.rotation.z=(i-2)*.19;group.add(ring);}
+   const arc=new THREE.Mesh(new THREE.TorusGeometry(2.48,.018,8,180,Math.PI*1.28),new THREE.MeshBasicMaterial({color:0x9deeff,transparent:true,opacity:.55}));arc.rotation.set(.7,.3,.2);group.add(arc);
    const defs=[
     {key:'creator',color:0x72e7ff,pos:new THREE.Vector3(0,2.12,.15)},
     {key:'brand',color:0x9272ff,pos:new THREE.Vector3(-1.84,-1.04,-.18)},
@@ -174,7 +237,7 @@ document.querySelectorAll('section,.ticker,.final-cta').forEach(el=>{el.classLis
    defs.forEach((d,i)=>{
     const line=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),d.pos]);group.add(new THREE.Line(line,new THREE.LineBasicMaterial({color:d.color,transparent:true,opacity:.68})));
     const halo=new THREE.Mesh(new THREE.SphereGeometry(.36,24,24),new THREE.MeshBasicMaterial({color:d.color,transparent:true,opacity:.13}));halo.position.copy(d.pos);group.add(halo);
-    const mesh=new THREE.Mesh(new THREE.IcosahedronGeometry(.22,2),new THREE.MeshStandardMaterial({color:d.color,metalness:.35,roughness:.2,emissive:d.color,emissiveIntensity:.35}));mesh.position.copy(d.pos);mesh.userData.key=d.key;group.add(mesh);nodes.push(mesh);
+    const mesh=new THREE.Mesh(new THREE.SphereGeometry(.19,32,24),new THREE.MeshPhysicalMaterial({color:d.color,metalness:.32,roughness:.1,clearcoat:1,emissive:d.color,emissiveIntensity:.52}));mesh.position.copy(d.pos);mesh.userData.key=d.key;group.add(mesh);const haloRing=new THREE.Mesh(new THREE.TorusGeometry(.34,.009,8,60),new THREE.MeshBasicMaterial({color:d.color,transparent:true,opacity:.65}));haloRing.position.copy(d.pos);haloRing.rotation.x=.9+i*.4;group.add(haloRing);nodes.push(mesh);
    });
    const dustGeo=new THREE.BufferGeometry(),positions=[];for(let i=0;i<130;i++){positions.push((Math.random()-.5)*7,(Math.random()-.5)*5,(Math.random()-.5)*3);}
    dustGeo.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));group.add(new THREE.Points(dustGeo,new THREE.PointsMaterial({color:0x8fb8d6,size:.018,transparent:true,opacity:.48})));
@@ -185,7 +248,7 @@ document.querySelectorAll('section,.ticker,.final-cta').forEach(el=>{el.classLis
    canvas.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x;const dy=e.clientY-drag.y;if(Math.abs(dx)>Math.abs(dy)*.65){group.rotation.y+=dx*.008;group.rotation.x+=dy*.003;}drag={x:e.clientX,y:e.clientY};});
    const end=e=>{if(!down)return;const moved=Math.hypot(e.clientX-down.x,e.clientY-down.y);if(moved<9)pick(e);down=null;drag=null;canvas.style.cursor='grab';};canvas.addEventListener('pointerup',end);canvas.addEventListener('pointercancel',()=>{down=null;drag=null;});
    const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible&&!raf)raf=requestAnimationFrame(draw);});observer.observe(host);
-   const draw=()=>{raf=0;if(!visible||document.hidden)return;if(!reduced&&!drag){group.rotation.y+=.0019;group.rotation.x=Math.sin(performance.now()*.00028)*.08;}const t=performance.now()*.001;coreWire.rotation.x=t*.12;coreWire.rotation.y=-t*.16;nodes.forEach((n,i)=>{const s=1+Math.sin(t*1.7+i*2)*.11;n.scale.setScalar(s);});renderer.render(scene,camera);raf=requestAnimationFrame(draw);};
+   const draw=()=>{raf=0;if(!visible||document.hidden)return;const t=performance.now()*.001;if(!reduced&&!drag){group.rotation.y+=.00135;group.rotation.x=Math.sin(t*.28)*.075;inner.rotation.y=t*.24;inner.rotation.x=t*.16;halo.scale.setScalar(1+Math.sin(t*1.4)*.045);arc.rotation.z=t*.13;}coreWire.rotation.x=t*.12;coreWire.rotation.y=-t*.16;nodes.forEach((n,i)=>{const pulse=1+Math.sin(t*1.7+i*2)*.13;n.scale.setScalar(pulse);n.position.y=defs[i].pos.y+Math.sin(t*1.2+i*2)*.045;});renderer.render(scene,camera);raf=requestAnimationFrame(draw);};
    document.addEventListener('visibilitychange',()=>{if(!document.hidden&&visible&&!raf)raf=requestAnimationFrame(draw);});
    if(state)state.textContent='READY / DRAG OR TAP A NODE';draw();
   }catch(err){console.warn('PromoBridge 3D scene unavailable:',err);fallback();}
