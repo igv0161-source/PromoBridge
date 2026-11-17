@@ -374,6 +374,7 @@ async function loadMessages(){
 }
 async function startChatWith(peerId,name='PromoBridge member'){
  if(!peerId){chatNotice('Choose a valid approved participant.','danger');return;}
+ const tab=document.querySelector('[data-tab="chat"]');if(tab&&!tab.classList.contains('hidden'))tab.click();
  const button=$('startChat');button.disabled=true;
  try{
   const {data,error}=await sb.functions.invoke('promobridge-chat',{body:{action:'create',peer_id:peerId}});
