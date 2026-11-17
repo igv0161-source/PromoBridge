@@ -213,6 +213,15 @@ input,select,textarea{min-height:48px;font-size:16px}
  .tabs button{padding:9px 12px;font-size:12px}
 }
 
+
+/* PROMOBRIDGE / UNIVERSAL TOUCH FEEDBACK */
+a[href],button,[role="button"],input[type="submit"],input[type="button"]{touch-action:manipulation}
+a[href].pb-tap,[role="button"].pb-tap{transform:translateY(1px) scale(.98);filter:brightness(1.16);box-shadow:0 0 0 1px #72e7ff70,0 0 22px #72e7ff2b}
+button.pb-tap,.btn.pb-tap,input[type=submit].pb-tap,input[type=button].pb-tap{transform:translateY(2px) scale(.975)}
+.chat-peer,.tabs button,.btn{min-height:44px}
+@media(hover:none){a[href]:active,button:active,[role="button"]:active{filter:brightness(1.12)}}
+@media(prefers-reduced-motion:reduce){a[href].pb-tap,[role="button"].pb-tap{transform:none;filter:none;box-shadow:none}}
+
 </style></head><body><div id="pb-progress" aria-hidden="true"></div><div class="wrap">
 <header><a class="brand" href="index.html" style="text-decoration:none">Promo<span>Bridge</span> <small>PORTAL</small></a><div class="row"><span id="who" class="muted"></span><button id="logout" class="btn alt hidden">Log out</button></div></header>
 <section id="setup" class="panel"><h2>Connect your PromoBridge database</h2><p class="muted">Enter your Supabase project URL and public anon key. These are intended for browser use; never paste a service-role key here.</p><label>Supabase Project URL</label><input id="sbUrl" placeholder="https://YOUR-PROJECT.supabase.co"><label>Supabase anon/public key</label><input id="sbKey" placeholder="sb_publishable_... or legacy anon key"><button class="btn" id="saveConfig">Connect</button><p id="setupMsg" class="muted"></p></section>
@@ -336,14 +345,25 @@ $('loadChatContacts').onclick=async()=>{
 
 config();
 </script>
-<script>/* Desktop pointer lighting + visible tap animation on touch and mouse. */
-(()=>{
- const controls=document.querySelectorAll('button,.btn,input[type=submit],input[type=button],a.button');
- controls.forEach(el=>{
-  el.addEventListener('pointermove',e=>{if(e.pointerType==='touch')return;const r=el.getBoundingClientRect();el.style.setProperty('--pb-mx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');el.style.setProperty('--pb-my',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');},{passive:true});
-  el.addEventListener('pointerdown',e=>{if(el.disabled)return;const r=el.getBoundingClientRect();el.style.setProperty('--pb-tx',((e.clientX-r.left)/r.width*100).toFixed(1)+'%');el.style.setProperty('--pb-ty',((e.clientY-r.top)/r.height*100).toFixed(1)+'%');el.classList.remove('pb-tap');void el.offsetWidth;el.classList.add('pb-tap');clearTimeout(el._pbTapTimer);el._pbTapTimer=setTimeout(()=>el.classList.remove('pb-tap'),680);},{passive:true});
-  el.addEventListener('pointerleave',()=>{el.style.removeProperty('--pb-mx');el.style.removeProperty('--pb-my');});
- });
+<script>/* Delegated pointer feedback includes dynamically created chat peers and controls. */
+(()=> {
+ const selector='a[href],button:not(:disabled),[role="button"],input[type="submit"]:not(:disabled),input[type="button"]:not(:disabled)';
+ let active=null,timer=0;
+ document.addEventListener('pointermove',e=>{
+  if(e.pointerType==='touch')return;
+  const el=e.target.closest(selector);if(!el)return;
+  const r=el.getBoundingClientRect();el.style.setProperty('--pb-mx',((e.clientX-r.left)/Math.max(1,r.width)*100).toFixed(1)+'%');el.style.setProperty('--pb-my',((e.clientY-r.top)/Math.max(1,r.height)*100).toFixed(1)+'%');
+ },{passive:true});
+ document.addEventListener('pointerdown',e=>{
+  const el=e.target.closest(selector);if(!el)return;
+  if(active)active.classList.remove('pb-tap');
+  active=el;const r=el.getBoundingClientRect();el.style.setProperty('--pb-tx',((e.clientX-r.left)/Math.max(1,r.width)*100).toFixed(1)+'%');el.style.setProperty('--pb-ty',((e.clientY-r.top)/Math.max(1,r.height)*100).toFixed(1)+'%');
+  active.classList.add('pb-tap');clearTimeout(timer);
+ },{passive:true});
+ const release=()=>{if(!active)return;const el=active;active=null;timer=setTimeout(()=>el.classList.remove('pb-tap'),420)};
+ document.addEventListener('pointerup',release,{passive:true});
+ document.addEventListener('pointercancel',release,{passive:true});
+ document.addEventListener('pointerout',e=>{const el=e.target.closest(selector);if(el&&!el.contains(e.relatedTarget)){el.style.removeProperty('--pb-mx');el.style.removeProperty('--pb-my')}});
 })();</script>
 
 <script>(()=>{const bar=document.getElementById('pb-progress');let raf=0;const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;bar.style.transform='scaleX('+(max>0?scrollY/max:0)+')';raf=0};addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(update)},{passive:true});new ResizeObserver(update).observe(document.body);update()})();</script></body></html>
