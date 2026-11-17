@@ -143,7 +143,7 @@ button.pb-tap,.btn.pb-tap,input[type=submit].pb-tap,input[type=button].pb-tap,a.
 .contact-row{padding:12px;border:1px solid var(--line);border-radius:12px;margin:8px 0;background:#0a1226;overflow-wrap:anywhere}
 @media(max-width:720px){.chat-layout{grid-template-columns:1fr}.chat-thread{height:280px}.chat-compose{flex-direction:column}.chat-compose button{width:100%}}
 
-</style></head><body><canvas id="portal3d" aria-hidden="true" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.5"></canvas><div class="wrap">
+</style></head><body><div class="wrap">
 <header><a class="brand" href="index.html" style="text-decoration:none">Promo<span>Bridge</span> <small>PORTAL</small></a><div class="row"><span id="who" class="muted"></span><button id="logout" class="btn alt hidden">Log out</button></div></header>
 <section id="setup" class="panel"><h2>Connect your PromoBridge database</h2><p class="muted">Enter your Supabase project URL and public anon key. These are intended for browser use; never paste a service-role key here.</p><label>Supabase Project URL</label><input id="sbUrl" placeholder="https://YOUR-PROJECT.supabase.co"><label>Supabase anon/public key</label><input id="sbKey" placeholder="sb_publishable_... or legacy anon key"><button class="btn" id="saveConfig">Connect</button><p id="setupMsg" class="muted"></p></section>
 <section id="auth" class="panel hidden"><h1>Welcome to PromoBridge</h1><p class="muted">Create an account as an influencer or business, or sign in.</p><div class="grid">
@@ -157,26 +157,6 @@ button.pb-tap,.btn.pb-tap,input[type=submit].pb-tap,input[type=button].pb-tap,a.
 <div id="admin" class="panel hidden"><h2>Admin proof review</h2><p class="notice">Only an account explicitly granted the admin role in the database can access this section. Approval records your decision; payment release is not connected yet.</p><div id="adminList"></div><hr style="border-color:var(--line);margin:25px 0"><h3>Restricted contact review</h3><p class="muted">Detected phone numbers are hidden from chat participants and visible only to admins here.</p><button class="btn alt" id="loadChatContacts">Load restricted contacts</button><div id="chatContacts"></div></div>
 </section><p id="globalMsg" class="muted"></p><footer class="muted" style="padding:25px 0">PromoBridge · Private beta build · Payments are not enabled in this phase.</footer>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-<script>
-(function(){
- const c=document.getElementById('portal3d'); if(!c||!window.THREE)return;
- try{
-  const s=new THREE.Scene(),cam=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,100);
-  cam.position.z=8;const r=new THREE.WebGLRenderer({canvas:c,alpha:true,antialias:true});
-  r.setPixelRatio(Math.min(devicePixelRatio||1,1.25));r.setSize(innerWidth,innerHeight);
-  const g=new THREE.Group();s.add(g);
-  const geo=new THREE.IcosahedronGeometry(2.4,1);
-  const wire=new THREE.Mesh(geo,new THREE.MeshBasicMaterial({color:0x6ce8ff,wireframe:true,transparent:true,opacity:.10}));
-  g.add(wire);
-  const ring=new THREE.Mesh(new THREE.TorusGeometry(3.1,.012,8,160),new THREE.MeshBasicMaterial({color:0x9a70ff,transparent:true,opacity:.22}));
-  ring.rotation.set(.9,.3,.2);g.add(ring);
-  s.add(new THREE.AmbientLight(0xffffff,1));
-  addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();r.setSize(innerWidth,innerHeight);});
-  const tick=()=>{g.rotation.y+=.0007;g.rotation.x+=.00025;ring.rotation.z+=.0005;r.render(s,cam);requestAnimationFrame(tick);};tick();
- }catch(e){c.style.display='none';}
-})();
-</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
 let sb=null, user=null, profile=null, activeConversation=null, chatChannel=null;
 const DEFAULT_SUPABASE_URL='https://zjwfavkhymypkvhlpuva.supabase.co';
