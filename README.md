@@ -37,7 +37,7 @@ The 3D scene loads Three.js from jsDelivr and therefore requires an internet con
 
 Supabase project ref: `zjwfavkhymypkvhlpuva`.
 
-- Row Level Security is enabled on all seven public tables.
+- Row Level Security is enabled on all ten public tables, including the payment transaction and provider-event tables.
 - Anonymous table privileges have been revoked.
 - Signed-in users can discover only approved profiles plus their own profile; administrators can review all profiles.
 - Only approved business accounts can create campaign requests for approved creators.
@@ -45,7 +45,7 @@ Supabase project ref: `zjwfavkhymypkvhlpuva`.
 - Proof submission is limited to the assigned approved creator after campaign acceptance.
 - Proof storage bucket `campaign-proof` is private, limited to 8 MB, and allows JPEG, PNG and WebP.
 - Chat conversation/message reads are participant-scoped. Contact reports are admin-only.
-- Edge Function `promobridge-chat` is deployed with JWT verification enabled.
+- Edge Functions `promobridge-chat` and `promobridge-reviews` are deployed with JWT verification enabled; `promobridge-payments` verifies user JWTs internally for checkout and signed provider webhooks for payment updates.
 - Authorization decisions use database profile roles and approval state, not user-editable metadata.
 
 Phone-number detection is best-effort pattern matching, not a guarantee against every possible obfuscation or written-out number. Do not send passwords, payment details or other sensitive information in chat.
@@ -82,7 +82,8 @@ PayPal, Stripe and crypto are not connected. Crypto remains disabled pending spe
 This is a static HTML/CSS/JavaScript project. The public homepage and portal are separate files:
 
 - `index.html` — marketing homepage and interactive 3D scene.
-- `portal.html` — Supabase Auth, profile, campaign, proof, admin and chat interface.
+- `portal.html` — Supabase Auth, profile, campaign, proof, admin, payments, payout tracking and chat interface.
+- `PAYMENTS_SETUP.md` — provider onboarding, Edge Function secret names, webhook configuration and sandbox rollout checklist.
 
 The portal uses the browser-safe Supabase publishable key. Never put a Supabase service-role key or other server secret in either HTML file. The `promobridge-chat` Edge Function uses server-side Supabase secrets.
 
@@ -92,8 +93,8 @@ For local testing, serve the repository through an HTTP server rather than openi
 
 Inline JavaScript syntax and DOM ID references have been statically checked. Supabase RLS, grants, core policies, edge-function status and advisor output were inspected after the latest database updates.
 
-A full browser/device end-to-end test has not yet been completed. Real signup, realtime chat, file upload, WebGL rendering and mobile touch behavior still need a live test using the deployed Pages site and test accounts.
+A full browser/device end-to-end test has not yet been completed. Cashfree sandbox checkout/webhook tests require merchant credentials and provider onboarding. Creator payout transfer is not connected. Real signup, realtime chat, file upload, WebGL rendering and mobile touch behavior still need a live test using the deployed Pages site and test accounts.
 
 ## Security follow-up
 
-Supabase currently reports **Leaked Password Protection Disabled**. Enable leaked-password protection in Supabase Auth password security settings before inviting public users. The performance advisor also reports 11 indexes not yet used; they were retained because the current database has very little activity and removing them would be premature.
+Supabase currently reports **Leaked Password Protection Disabled**. Enable leaked-password protection in Supabase Auth password security settings before inviting public users. The performance advisor also reports 14 indexes not yet used; they were retained because the current database has very little activity and removing them would be premature.
