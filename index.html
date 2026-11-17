@@ -72,11 +72,39 @@ button.pb-tap,.btn.pb-tap,input[type=submit].pb-tap,input[type=button].pb-tap,a.
 @media(hover:none){button:hover,.btn:hover,input[type=submit]:hover,input[type=button]:hover,a.button:hover{transform:none;filter:none}button.pb-tap,.btn.pb-tap,input[type=submit].pb-tap,input[type=button].pb-tap,a.button.pb-tap{transform:translateY(2px) scale(.975);filter:brightness(1.16) saturate(1.18)}}
 @media(prefers-reduced-motion:reduce){button.pb-tap::before,button.pb-tap::after,.btn.pb-tap::before,.btn.pb-tap::after{animation:none!important}}
 
+
+/* CINEMATIC PROMOBRIDGE EXPERIENCE */
+:root{--bg:#050713;--panel:rgba(13,19,39,.78);--panel2:#111a35;--text:#f7f8ff;--muted:#a9b3cf;--blue:#57b8ff;--violet:#a66bff;--line:rgba(145,170,255,.19)}
+body{background:radial-gradient(ellipse at 78% 10%,rgba(104,56,210,.28),transparent 34%),radial-gradient(ellipse at 12% 38%,rgba(28,115,220,.2),transparent 36%),linear-gradient(180deg,#050713,#080d20 58%,#050713);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.16;background-image:linear-gradient(rgba(155,180,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(155,180,255,.07) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(to bottom,black,transparent 78%)}
+nav{height:82px;border-bottom-color:rgba(153,181,255,.13);backdrop-filter:blur(18px)}
+.brand{letter-spacing:-.8px}.brand span{color:#83caff;text-shadow:0 0 24px #428dff88}
+.hero{min-height:650px;padding:90px 0 82px;gap:46px}
+.hero h1{font-size:clamp(3rem,7vw,5.6rem);line-height:.98;letter-spacing:-3.8px;text-shadow:0 8px 55px #0009}
+.hero h1 span{background:linear-gradient(100deg,#70d7ff,#a88aff 70%,#d5a5ff);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+.hero p{font-size:1.13rem;line-height:1.8;color:#b5bfd9;max-width:560px}
+.eyebrow{color:#83dfff;letter-spacing:2.5px}
+#hero3d{filter:drop-shadow(0 0 36px rgba(85,126,255,.28))}
+.creator-card{background:linear-gradient(145deg,rgba(22,34,68,.82),rgba(8,13,30,.9));border:1px solid rgba(129,181,255,.3);backdrop-filter:blur(24px);box-shadow:0 35px 100px #0009,0 0 65px rgba(73,114,255,.16);border-radius:28px}
+.avatar{background:radial-gradient(circle at 25% 20%,#a8e9ff,#397bff 48%,#8052db);box-shadow:0 0 38px #548dff66}
+.stat,.card,.step,.booking-info{background:linear-gradient(145deg,rgba(19,29,58,.84),rgba(9,15,32,.88));border-color:rgba(140,169,255,.17);backdrop-filter:blur(16px)}
+.card{border-radius:22px;box-shadow:0 18px 50px rgba(0,0,0,.18)}
+.card:hover{transform:translateY(-7px) perspective(900px) rotateX(1deg);border-color:rgba(111,204,255,.55);box-shadow:0 24px 65px rgba(36,100,220,.18)}
+.featured{border-color:rgba(151,123,255,.65);box-shadow:0 0 0 1px #927bff22,0 20px 65px #563bb52a}
+.step{border-radius:19px}.step:hover{border-color:#70cfff66}
+section{padding-top:82px;padding-bottom:82px}
+.section-head h2{font-size:clamp(2rem,4vw,3rem);letter-spacing:-1.6px}
+.btn{border-radius:14px;padding:14px 21px}
+footer{border-color:rgba(145,170,255,.16)}
+@media(max-width:800px){.hero{min-height:unset;padding:66px 0 54px;gap:34px}.hero h1{letter-spacing:-2.4px}.creator-card{max-width:520px;margin:auto;width:100%}section{padding-top:60px;padding-bottom:60px}}
+@media(max-width:520px){.hero{padding:52px 0 42px}.hero h1{font-size:clamp(2.7rem,13vw,4rem)}.hero p{font-size:1rem}.hero-actions .btn{flex:1}.stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.card,.creator-card,.btn{transition:none!important}}
+
 </style>
 </head>
 <body>
 <header class="wrap">
-<nav><a class="brand" href="#">Promo<span>Bridge</span></a><div class="navlinks"><a href="#creators">Creator</a><a href="#packages">Packages</a><a href="#how">How it works</a><a href="portal.html">Creator / Business Portal</a><a href="#book">Book now</a></div><a class="btn" href="#book">Start a booking</a></nav>
+<nav><a class="brand" href="#">Promo<span>Bridge</span></a><div class="navlinks"><a href="#creators">Creator</a><a href="#packages">Packages</a><a href="#how">How it works</a><a href="portal.html">Creator / Business Portal</a><a href="portal.html">Private chat</a></div><a class="btn" href="portal.html">Enter the portal</a></nav>
 </header>
 <main>
 <div class="wrap hero"><canvas id="hero3d" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:.9"></canvas>
@@ -85,15 +113,13 @@ button.pb-tap,.btn.pb-tap,input[type=submit].pb-tap,input[type=button].pb-tap,a.
 </div>
 <section class="wrap" id="packages"><div class="section-head"><div><div class="eyebrow">Simple options</div><h2>Promotion packages</h2></div><p>Indicative launch prices only. Final pricing, deliverables and creator payout must be agreed before accepting payment.</p></div>
 <div class="grid">
-<article class="card"><span class="tag">Quick visibility</span><h3>Story Feature</h3><div class="price">₹499 <small>/ campaign*</small></div><ul><li>One Instagram Story placement</li><li>Business tag and call-to-action</li><li>Booking subject to creator approval</li></ul><a class="btn secondary" href="#book" data-package="Story Feature">Enquire about this</a></article>
-<article class="card featured"><span class="badge">POPULAR</span><h3>Reel Promotion</h3><div class="price">₹1,499 <small>/ campaign*</small></div><ul><li>One dedicated promotional Reel</li><li>Business tag and agreed caption</li><li>Posting date confirmed in advance</li></ul><a class="btn" href="#book" data-package="Reel Promotion">Enquire about this</a></article>
-<article class="card"><span class="tag">More visibility</span><h3>Reel + Stories</h3><div class="price">₹2,499 <small>/ campaign*</small></div><ul><li>One promotional Reel</li><li>Two supporting Stories</li><li>Campaign coordination and report</li></ul><a class="btn secondary" href="#book" data-package="Reel + Stories">Enquire about this</a></article>
+<article class="card"><span class="tag">Quick visibility</span><h3>Story Feature</h3><div class="price">₹499 <small>/ campaign*</small></div><ul><li>One Instagram Story placement</li><li>Business tag and call-to-action</li><li>Booking subject to creator approval</li></ul><a class="btn secondary" href="portal.html" data-package="Story Feature">Enquire about this</a></article>
+<article class="card featured"><span class="badge">POPULAR</span><h3>Reel Promotion</h3><div class="price">₹1,499 <small>/ campaign*</small></div><ul><li>One dedicated promotional Reel</li><li>Business tag and agreed caption</li><li>Posting date confirmed in advance</li></ul><a class="btn" href="portal.html" data-package="Reel Promotion">Enquire about this</a></article>
+<article class="card"><span class="tag">More visibility</span><h3>Reel + Stories</h3><div class="price">₹2,499 <small>/ campaign*</small></div><ul><li>One promotional Reel</li><li>Two supporting Stories</li><li>Campaign coordination and report</li></ul><a class="btn secondary" href="portal.html" data-package="Reel + Stories">Enquire about this</a></article>
 </div><p class="notice" style="margin-top:14px">*Sample prices for the prototype, not a confirmed offer. Replace them after agreeing the creator's fee, your commission, taxes and campaign terms.</p>
 </section>
 <section class="wrap" id="how"><div class="section-head"><div><div class="eyebrow">Easy process</div><h2>From enquiry to promotion</h2></div></div><div class="steps"><div class="step"><div class="num">01 / ENQUIRE</div><h3>Choose a package</h3><p>Share your business details and campaign goal.</p></div><div class="step"><div class="num">02 / CONFIRM</div><h3>We review it</h3><p>We check creator fit, availability, deliverables and final price.</p></div><div class="step"><div class="num">03 / CREATE</div><h3>Content is prepared</h3><p>Creator and business approve the content and posting date.</p></div><div class="step"><div class="num">04 / PUBLISH</div><h3>Campaign goes live</h3><p>Promotion is published and agreed proof or insights are shared.</p></div></div></section>
-<section class="wrap" id="book"><div class="section-head"><div><div class="eyebrow">Let's collaborate</div><h2>Request a promotion</h2></div><p>Send an enquiry. This demo opens WhatsApp with your details so you can confirm the campaign manually.</p></div>
-<div class="booking"><div class="booking-info"><h3>Have a campaign in mind?</h3><p class="muted">Tell us what you sell, who you want to reach and when you'd like the promotion to run. We'll reply with availability and a confirmed quote.</p><p>✓ No booking is confirmed until we approve it.<br>✓ Never pay an unverified personal account.<br>✓ Sponsored posts will be clearly disclosed.</p><div class="tag">Local creator campaigns</div></div>
-<form id="bookingForm"><div><label for="name">Your name *</label><input id="name" required placeholder="Name"></div><div><label for="business">Business name *</label><input id="business" required placeholder="Business name"></div><div><label for="phone">WhatsApp number *</label><input id="phone" required type="tel" placeholder="+91..."></div><div><label for="city">City / town *</label><input id="city" required placeholder="Your city"></div><div class="full"><label for="package">Package *</label><select id="package" required><option value="">Choose a package</option><option>Story Feature</option><option>Reel Promotion</option><option>Reel + Stories</option><option>Custom campaign</option></select></div><div class="full"><label for="goal">What would you like to promote?</label><textarea id="goal" placeholder="Product, service, offer, preferred dates..."></textarea></div><div class="full"><button class="btn" type="submit" style="width:100%">Send enquiry on WhatsApp</button><p class="notice" style="margin-top:10px">Demo setup: add your WhatsApp number in the website settings before sharing this page publicly. Do not collect or store sensitive customer information.</p></div></form></div></section>
+<section class="wrap" id="collaborate"><div class="section-head"><div><div class="eyebrow">Your next collaboration starts here</div><h2>Meet. Message. Make it happen.</h2></div><p>A dedicated space for creators and businesses to connect, discuss campaign details and manage collaborations.</p></div><div class="booking"><div class="booking-info"><div class="eyebrow">PROMOBRIDGE PORTAL</div><h3>One place for every collaboration.</h3><p class="muted">Create your account, discover campaign opportunities and continue conversations in the private portal.</p><p>✓ Creator and business accounts<br>✓ Private in-platform messaging<br>✓ Campaign requests and proof review<br>✓ No private portal enquiry handoff</p><span class="tag">Built for real collaborations</span></div><div class="card" style="padding:32px"><div class="eyebrow">GET STARTED</div><h3 style="font-size:1.8rem;margin:12px 0">Bring your next idea to life.</h3><p class="muted">Sign in or create a PromoBridge account to get started. Campaigns are reviewed before confirmation; payments are not enabled yet.</p><a class="btn" href="portal.html" style="margin-top:12px">Open PromoBridge Portal →</a></div></div></section>
 <section class="wrap"><div class="section-head"><div><div class="eyebrow">Good to know</div><h2>Frequently asked questions</h2></div></div><div class="faq"><div class="card"><h3>Are the prices final?</h3><p>No. Prices shown are examples. You'll receive a confirmed quote after checking campaign details and creator availability.</p></div><div class="card"><h3>Can businesses outside the town enquire?</h3><p>Yes. Remote campaigns may be possible if the creator can produce the content using supplied products or approved footage.</p></div><div class="card"><h3>Is a booking instant?</h3><p>No. Every request is reviewed and confirmed manually before payment or publishing.</p></div><div class="card"><h3>Will results be guaranteed?</h3><p>No. Views, reach, sales and enquiries vary. We can share available campaign insights after publication.</p></div></div></section>
 </main>
 <footer class="wrap"><div>© <span id="year"></span> PromoBridge. Independent creator campaign coordination.</div><div>Instagram promotions · Business enquiries · Transparent campaigns</div></footer>
@@ -127,15 +153,6 @@ button.pb-tap,.btn.pb-tap,input[type=submit].pb-tap,input[type=button].pb-tap,a.
   tick();
  }catch(e){canvas.style.display='none';}
 })();
-const WHATSAPP_NUMBER = "91XXXXXXXXXX"; // Replace with your WhatsApp number: country code + number, digits only.
-document.querySelectorAll("[data-package]").forEach(el=>el.addEventListener("click",()=>{document.getElementById("package").value=el.dataset.package}));
-document.getElementById("bookingForm").addEventListener("submit",e=>{
- e.preventDefault();
- if(WHATSAPP_NUMBER.includes("X")){alert("Website setup needed: replace WHATSAPP_NUMBER in index.html with your WhatsApp number, then try again.");return;}
- const v=id=>document.getElementById(id).value.trim();
- const msg=`New promotion enquiry%0AName: ${encodeURIComponent(v("name"))}%0ABusiness: ${encodeURIComponent(v("business"))}%0APhone: ${encodeURIComponent(v("phone"))}%0ACity: ${encodeURIComponent(v("city"))}%0APackage: ${encodeURIComponent(v("package"))}%0ADetails: ${encodeURIComponent(v("goal"))}`;
- window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`,"_blank");
-});
 document.getElementById("year").textContent=new Date().getFullYear();
 </script>
 
