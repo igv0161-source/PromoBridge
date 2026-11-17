@@ -182,6 +182,7 @@ let sb=null, user=null, profile=null, activeConversation=null, chatChannel=null;
 const DEFAULT_SUPABASE_URL='https://zjwfavkhymypkvhlpuva.supabase.co';
 const DEFAULT_SUPABASE_PUBLIC_KEY='sb_publishable_pErD4Dvnp1iyVYsTp8PQMg_jUdNqIkK';
 const $=id=>document.getElementById(id), msg=(id,t,cls='muted')=>{ $(id).textContent=t;$(id).className=cls; };
+const requestedRole=new URLSearchParams(location.search).get('role');if(requestedRole==='influencer'||requestedRole==='business')$('signup').elements.role.value=requestedRole;
 function show(id){['setup','auth','app'].forEach(x=>$(x).classList.toggle('hidden',x!==id));}
 function config(){let u=localStorage.getItem('pb_url')||DEFAULT_SUPABASE_URL,k=localStorage.getItem('pb_key')||DEFAULT_SUPABASE_PUBLIC_KEY;if(!window.supabase){msg('globalMsg','Could not load the database library. Check your internet connection and reload.','danger');show('setup');return;}sb=window.supabase.createClient(u,k);show('auth');sb.auth.getSession().then(({data})=>{if(data.session)start(data.session.user);});}
 $('saveConfig').onclick=()=>{let u=$('sbUrl').value.trim(),k=$('sbKey').value.trim();if(!u.startsWith('https://')||!k){msg('setupMsg','Enter a valid project URL and public anon key.','danger');return;}localStorage.setItem('pb_url',u);localStorage.setItem('pb_key',k);config();};
