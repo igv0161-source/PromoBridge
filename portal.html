@@ -380,6 +380,17 @@ async function loadBusinessProofReviews(){
   actions.append(approve,reject);row.append(title,meta,post,actions);host.append(row);
  }
 }
+async function fetchAllRows(queryFactory,pageSize=500){
+ const rows=[];let offset=0;
+ while(true){
+  const {data,error}=await queryFactory().range(offset,offset+pageSize-1);
+  if(error)return {data:null,error};
+  const batch=data||[];rows.push(...batch);
+  if(batch.length<pageSize)break;
+  offset+=pageSize;
+ }
+ return {data:rows,error:null};
+}
 let cashfreeSdkPromise=null;
 function loadCashfreeSdk(){if(window.Cashfree)return Promise.resolve(window.Cashfree);if(!cashfreeSdkPromise)cashfreeSdkPromise=new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='https://sdk.cashfree.com/js/v3/cashfree.js';script.onload=()=>window.Cashfree?resolve(window.Cashfree):reject(new Error('Cashfree SDK unavailable'));script.onerror=()=>reject(new Error('Cashfree SDK could not load'));document.head.append(script);});return cashfreeSdkPromise;}
 async function loadWallet(){
@@ -391,12 +402,12 @@ async function loadWallet(){
  if(!account){set('walletAvailable','Not set up');set('walletStatus','Pending setup');set('walletNote','No wallet ledger account exists yet. Contact support if this continues.');history.textContent='No wallet account found.';return;}
  set('walletStatus',String(account.account_status).replaceAll('_',' '));
  set('walletCurrency',account.currency+' · posted ledger entries only');
- const {data:entries,error:ledgerError}=await sb.from('wallet_ledger').select('id,entry_type,direction,amount,entry_status,currency,description,created_at,settlement_reference').eq('account_id',account.id).order('created_at',{ascending:false}).limit(100);
+ const {data:entries,error:ledgerError}=await fetchAllRows(()=>sb.from('wallet_ledger').select('id,entry_type,direction,amount,entry_status,currency,description,created_at,settlement_reference').eq('account_id',account.id).order('created_at',{ascending:false}));
  if(ledgerError){set('walletAvailable','Unavailable');set('walletNote','Ledger history could not be loaded: '+ledgerError.message);history.textContent='Wallet history unavailable.';return;}
  const posted=(entries||[]).filter(e=>e.entry_status==='posted'&&e.currency===account.currency);
  const credits=posted.filter(e=>e.direction==='credit').reduce((n,e)=>n+Number(e.amount),0);
  const debits=posted.filter(e=>e.direction==='debit').reduce((n,e)=>n+Number(e.amount),0);
- const pending=(entries||[]).filter(e=>e.entry_status==='pending').reduce((n,e)=>n+Number(e.amount),0);
+ const pending=(entries||[]).filter(e=>e.entry_status==='pending'&&e.currency===account.currency).reduce((n,e)=>n+Number(e.amount),0);
  const fmt=n=>account.currency+' '+n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
  set('walletAvailable',fmt(credits-debits));set('walletCredits',fmt(credits));set('walletDebits',fmt(debits));set('walletPending',fmt(pending));
  set('walletNote',entries?.length?'Available balance is calculated from posted ledger entries only. Pending entries are not spendable. Adding funds, sending money and withdrawals remain disabled until provider approval and compliance checks are complete.':'Your wallet ledger is ready, but no funds or transactions have been recorded. This is not a bank account or stored-value payment instrument.');
@@ -415,12 +426,13 @@ async function loadFinanceDashboard(){
  const note=$('financeNote'),currencyHost=$('financeCurrencies');
  note.textContent='Loading provider-confirmed payments and payout records…';currencyHost.replaceChildren();
  const [payRes,payoutRes]=await Promise.all([
-  sb.from('payment_transactions').select('amount,currency,status,provider_mode,paid_at').eq('status','paid').eq('provider_mode','production').not('paid_at','is',null).limit(2000),
-  sb.from('payout_records').select('gross_amount,commission_amount,influencer_amount,currency,payout_status,paid_at').limit(2000)
+  fetchAllRows(()=>sb.from('payment_transactions').select('amount,currency,status,provider_mode,paid_at').eq('status','paid').eq('provider_mode','production').not('paid_at','is',null)),
+  fetchAllRows(()=>sb.from('payout_records').select('gross_amount,commission_amount,influencer_amount,currency,payout_status,paid_at'))
+
  ]);
  if(payRes.error||payoutRes.error){note.textContent='Finance figures could not be loaded. '+[payRes.error?.message,payoutRes.error?.message].filter(Boolean).join(' · ');return;}
  const payments=payRes.data||[],payouts=payoutRes.data||[];
- const sums={};
+ const sums={INR:{gross:0,commission:0,pendingCommission:0,creatorPaid:0}};
  const add=(cur,key,val)=>{if(!sums[cur])sums[cur]={gross:0,commission:0,pendingCommission:0,creatorPaid:0};sums[cur][key]+=Number(val)||0;};
  for(const p of payments)add(p.currency||'INR','gross',p.amount);
  for(const p of payouts){const c=p.currency||'INR';add(c,'commission',p.commission_amount);if(p.payout_status==='paid'&&p.paid_at)add(c,'creatorPaid',p.influencer_amount);else add(c,'pendingCommission',p.commission_amount);}
@@ -461,19 +473,6 @@ $('proofForm').onsubmit=async e=>{
  }catch(error){msg('proofMsg','Upload could not be completed. Check your connection and try again.','danger');}
  finally{button.disabled=false;}
 };
- e.preventDefault();const button=e.target.querySelector('button[type="submit"],button:not([type])');const f=new FormData(e.target),file=f.get('proof'),bid=f.get('booking_id');
- if(!bid){msg('proofMsg','Choose an accepted campaign first.','danger');return;}
- if(!file||!file.size){msg('proofMsg','Choose a screenshot to upload.','danger');return;}
- if(file.size>8*1024*1024){msg('proofMsg','File exceeds 8 MB.','danger');return;}
- if(!['image/jpeg','image/png','image/webp'].includes(file.type)){msg('proofMsg','Only JPG, PNG or WebP screenshots are allowed.','danger');return;}
- const path=user.id+'/'+crypto.randomUUID()+'-'+file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
- button.disabled=true;msg('proofMsg','Uploading proof securely…','muted');
- const up=await sb.storage.from('campaign-proof').upload(path,file,{upsert:false,contentType:file.type});
- if(up.error){button.disabled=false;msg('proofMsg',up.error.message,'danger');return;}
- const ins=await sb.from('proof_submissions').insert({booking_id:bid,influencer_id:user.id,storage_path:path,post_url:f.get('post_url'),status:'submitted'});
- if(ins.error){button.disabled=false;msg('proofMsg','Screenshot uploaded, but the proof record was not saved: '+ins.error.message,'danger');return;}
- msg('proofMsg','Proof submitted for admin review.','success');e.target.reset();await loadEligibleProofBookings();button.disabled=false;
-};
 
 async function loadAdminWallet(){
  const ids=['ownerWalletStatus','ownerWalletAvailable','ownerWalletPending','ownerWalletCount'];
@@ -484,7 +483,7 @@ async function loadAdminWallet(){
  if(!accounts?.length){$('ownerWalletStatus').textContent='Not created';$('ownerWalletAvailable').textContent='—';$('ownerWalletPending').textContent='—';$('ownerWalletCount').textContent='0';pendingHost.textContent='No owner wallet account exists.';historyHost.textContent='No transaction history.';return;}
  $('ownerWalletStatus').textContent=accounts.map(a=>a.currency+': '+a.account_status.replaceAll('_',' ')).join(' · ');
  let all=[],balances={},pendingTotals={};
- for(const a of accounts){const {data,error:e}=await sb.from('wallet_ledger').select('id,entry_type,direction,amount,entry_status,currency,booking_id,description,created_at,settlement_reference').eq('account_id',a.id).order('created_at',{ascending:false}).limit(500);if(e){pendingHost.textContent='Ledger unavailable: '+e.message;return;}const rows=data||[];all.push(...rows);const posted=rows.filter(x=>x.entry_status==='posted');balances[a.currency]=posted.filter(x=>x.direction==='credit').reduce((n,x)=>n+Number(x.amount),0)-posted.filter(x=>x.direction==='debit').reduce((n,x)=>n+Number(x.amount),0);pendingTotals[a.currency]=rows.filter(x=>x.entry_status==='pending').reduce((n,x)=>n+Number(x.amount),0);}
+ for(const a of accounts){const {data,error:e}=await fetchAllRows(()=>sb.from('wallet_ledger').select('id,entry_type,direction,amount,entry_status,currency,booking_id,description,created_at,settlement_reference').eq('account_id',a.id).order('created_at',{ascending:false}));if(e){pendingHost.textContent='Ledger unavailable: '+e.message;return;}const rows=data||[];all.push(...rows);const posted=rows.filter(x=>x.entry_status==='posted'&&x.currency===a.currency);balances[a.currency]=posted.filter(x=>x.direction==='credit').reduce((n,x)=>n+Number(x.amount),0)-posted.filter(x=>x.direction==='debit').reduce((n,x)=>n+Number(x.amount),0);pendingTotals[a.currency]=rows.filter(x=>x.entry_status==='pending'&&x.currency===a.currency).reduce((n,x)=>n+Number(x.amount),0);}
  const fmt=(v,c)=>new Intl.NumberFormat(undefined,{style:'currency',currency:c,maximumFractionDigits:2}).format(v);
  const showMap=o=>Object.entries(o).map(([c,v])=>fmt(v,c)).join(' · ')||'—';
  $('ownerWalletAvailable').textContent=showMap(balances);$('ownerWalletPending').textContent=showMap(pendingTotals);$('ownerWalletCount').textContent=String(all.length);
