@@ -339,7 +339,7 @@ async function loadBookings(){
    const phone=document.createElement('input');phone.type='tel';phone.inputMode='tel';phone.placeholder='Mobile number with country code';phone.setAttribute('aria-label','Mobile number for payment checkout');phone.style.maxWidth='280px';
    const pay=document.createElement('button');pay.type='button';pay.className='btn';pay.textContent='Pay campaign securely';
    const state=document.createElement('small');state.className='muted';
-   pay.onclick=async()=>{const n=phone.value.replace(/\\D/g,'');if(n.length<10||n.length>15){state.textContent='Enter a valid phone number (10–15 digits).';return;}pay.disabled=true;state.textContent='Creating secure checkout…';try{const {data:checkout,error:checkoutError}=await sb.functions.invoke('promobridge-payments',{body:{action:'create_order',booking_id:booking.id,customer_phone:n}});if(checkoutError||checkout?.error){state.textContent=checkout?.error||checkoutError.message||'Checkout could not start.';pay.disabled=false;return;}const sdk=await loadCashfreeSdk();const cf=await sdk({mode:checkout.mode==='production'?'production':'sandbox'});await cf.checkout({paymentSessionId:checkout.payment_session_id,redirectTarget:'_self'});}catch(err){state.textContent='Could not open checkout. No payment confirmation was recorded.';pay.disabled=false;}};
+   pay.onclick=async()=>{const n=phone.value.replace(/\D/g,'');if(n.length<10||n.length>15){state.textContent='Enter a valid phone number (10–15 digits).';return;}pay.disabled=true;state.textContent='Creating secure checkout…';try{const {data:checkout,error:checkoutError}=await sb.functions.invoke('promobridge-payments',{body:{action:'create_order',booking_id:booking.id,customer_phone:n}});if(checkoutError||checkout?.error){state.textContent=checkout?.error||checkoutError.message||'Checkout could not start.';pay.disabled=false;return;}const sdk=await loadCashfreeSdk();const cf=await sdk({mode:checkout.mode==='production'?'production':'sandbox'});await cf.checkout({paymentSessionId:checkout.payment_session_id,redirectTarget:'_self'});}catch(err){state.textContent='Could not open checkout. No payment confirmation was recorded.';pay.disabled=false;}};
    payWrap.append(phone,pay);card.append(payWrap,state);
   }
   if(profile.role==='influencer'&&booking.status==='requested'){
@@ -441,6 +441,26 @@ async function loadEligibleProofBookings(){
  help.textContent='Only accepted campaigns appear here.';if(submit)submit.disabled=false;
 }
 $('proofForm').onsubmit=async e=>{
+ e.preventDefault();
+ const form=e.target,button=form.querySelector('button[type="submit"],button:not([type])');
+ const data=new FormData(form),file=data.get('proof'),bookingId=data.get('booking_id');
+ if(!bookingId){msg('proofMsg','Choose an accepted campaign first.','danger');return;}
+ if(!file||!file.size){msg('proofMsg','Choose a screenshot to upload.','danger');return;}
+ if(file.size>8*1024*1024){msg('proofMsg','File exceeds 8 MB.','danger');return;}
+ if(!['image/jpeg','image/png','image/webp'].includes(file.type)){msg('proofMsg','Only JPG, PNG or WebP screenshots are allowed.','danger');return;}
+ let postUrl;try{postUrl=new URL(String(data.get('post_url')||''));}catch(_){msg('proofMsg','Enter a valid Instagram post URL.','danger');return;}
+ if(postUrl.protocol!=='https:'||!(postUrl.hostname==='instagram.com'||postUrl.hostname.endsWith('.instagram.com'))){msg('proofMsg','Use the secure HTTPS URL of the published Instagram post.','danger');return;}
+ const path=user.id+'/'+crypto.randomUUID()+'-'+file.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+ button.disabled=true;msg('proofMsg','Uploading proof securely…','muted');
+ try{
+  const upload=await sb.storage.from('campaign-proof').upload(path,file,{upsert:false,contentType:file.type});
+  if(upload.error){msg('proofMsg',upload.error.message,'danger');return;}
+  const insert=await sb.from('proof_submissions').insert({booking_id:bookingId,influencer_id:user.id,storage_path:path,post_url:postUrl.href,status:'submitted'});
+  if(insert.error){msg('proofMsg','Screenshot uploaded, but its proof record was not saved: '+insert.error.message+' Contact support before uploading again.','danger');return;}
+  msg('proofMsg','Proof submitted for business and administrator review.','success');form.reset();await loadEligibleProofBookings();
+ }catch(error){msg('proofMsg','Upload could not be completed. Check your connection and try again.','danger');}
+ finally{button.disabled=false;}
+};
  e.preventDefault();const button=e.target.querySelector('button[type="submit"],button:not([type])');const f=new FormData(e.target),file=f.get('proof'),bid=f.get('booking_id');
  if(!bid){msg('proofMsg','Choose an accepted campaign first.','danger');return;}
  if(!file||!file.size){msg('proofMsg','Choose a screenshot to upload.','danger');return;}
@@ -454,7 +474,7 @@ $('proofForm').onsubmit=async e=>{
  if(ins.error){button.disabled=false;msg('proofMsg','Screenshot uploaded, but the proof record was not saved: '+ins.error.message,'danger');return;}
  msg('proofMsg','Proof submitted for admin review.','success');e.target.reset();await loadEligibleProofBookings();button.disabled=false;
 };
-$('proofForm').onsubmit=async e=>{e.preventDefault();let f=new FormData(e.target),file=f.get('proof'),bid=f.get('booking_id');if(file.size>8*1024*1024){msg('proofMsg','File exceeds 8 MB.','danger');return;}let path=`${user.id}/${crypto.randomUUID()}-${file.name.replace(/[^a-zA-Z0-9._-]/g,'_')}`;let up=await sb.storage.from('campaign-proof').upload(path,file,{upsert:false,contentType:file.type});if(up.error){msg('proofMsg',up.error.message,'danger');return;}let ins=await sb.from('proof_submissions').insert({booking_id:bid,influencer_id:user.id,storage_path:path,post_url:f.get('post_url'),status:'submitted'});if(ins.error){msg('proofMsg','Upload succeeded but proof record failed: '+ins.error.message,'danger');return;}msg('proofMsg','Proof submitted for admin review.','success');e.target.reset();};
+
 async function loadAdminWallet(){
  const ids=['ownerWalletStatus','ownerWalletAvailable','ownerWalletPending','ownerWalletCount'];
  const pendingHost=$('ownerWalletPendingList'),historyHost=$('ownerWalletHistory');
