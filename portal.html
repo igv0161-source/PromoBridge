@@ -143,7 +143,29 @@ button.pb-tap,.btn.pb-tap,input[type=submit].pb-tap,input[type=button].pb-tap,a.
 .contact-row{padding:12px;border:1px solid var(--line);border-radius:12px;margin:8px 0;background:#0a1226;overflow-wrap:anywhere}
 @media(max-width:720px){.chat-layout{grid-template-columns:1fr}.chat-thread{height:280px}.chat-compose{flex-direction:column}.chat-compose button{width:100%}}
 
-</style></head><body><div class="wrap">
+
+/* PROMOBRIDGE / CINEMATIC PORTAL SYSTEM */
+:root{--bg:#070910;--surface:#0d1422;--surface-2:#111c2e;--line:#29364a;--ink:#f4f7fb;--muted:#9ba8ba;--accent:#72e7ff;--accent-dark:#36bad8;--accent-soft:#102c3b;--gold:#9272ff;--gold-soft:#211a3b;--coral:#ff8b9b;--coral-soft:#351e36;--teal:#72e7ff;--teal-soft:#102c3b;--purple:#a18bff;--purple-soft:#241d40;--danger:#ff777f;--success:#65d6a7;--shadow:0 24px 70px rgba(0,0,0,.32);--radius:5px}
+body{background:linear-gradient(rgba(114,231,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(114,231,255,.022) 1px,transparent 1px),radial-gradient(ellipse at 85% 0%,#18375a50,transparent 34%),radial-gradient(ellipse at 0% 75%,#24184b38,transparent 36%),#070910;background-size:58px 58px,58px 58px,auto,auto,auto;letter-spacing:-.012em}
+.wrap{width:min(1120px,calc(100% - 36px))}header{min-height:86px;border-bottom:1px solid #ffffff1b}.brand{font-size:25px;letter-spacing:-1.4px}
+.panel{background:linear-gradient(145deg,rgba(17,27,44,.96),rgba(9,14,24,.97));border:1px solid #ffffff20;border-radius:5px;box-shadow:0 22px 70px #0005}
+#app>.panel:first-child{background:linear-gradient(115deg,#12243a,#0d1525);border-top:2px solid var(--accent)}
+h1{font-size:clamp(30px,5vw,48px);letter-spacing:-2px}h2{font-size:23px;letter-spacing:-.8px}
+input,select,textarea{border-radius:4px;border-color:#34445b;background:#080e19}input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px #72e7ff18}
+.btn,button,.btn.alt,.btn.secondary,.tabs button{border-radius:4px;box-shadow:none;text-shadow:none;transform:none;background:var(--accent);color:#071018;border:1px solid var(--accent);font-weight:800;letter-spacing:.035em;transition:background .2s,color .2s,border-color .2s,transform .2s}
+.btn:hover,button:hover{background:#a5f0ff;color:#061018;transform:translateY(-2px);box-shadow:0 9px 24px #72e7ff20}
+.btn.alt,.btn.secondary,.tabs button{background:transparent;color:#d9e3f0;border:1px solid #ffffff2c}
+.btn.alt:hover,.btn.secondary:hover,.tabs button:hover{background:#72e7ff12;color:#fff;border-color:#72e7ff88}
+.tabs{gap:8px;border-color:#ffffff20}.tabs button{padding:10px 15px}.tabs button:focus,.tabs button:active{background:#72e7ff16;color:var(--accent);border-color:#72e7ff88}
+.item{background:linear-gradient(145deg,#111e30,#0b1220);border:1px solid #ffffff1d;border-radius:5px}
+.notice{background:#211a3b;border-color:#594a8b;color:#d8ceff}.badge{border-radius:4px;border-color:#72e7ff55}
+#approvalStatus{background:#102c3b;color:#72e7ff!important;border-radius:4px}
+#auth .grid>div{background:#0c1422;border:1px solid #ffffff20;border-radius:5px}#auth .grid>div:first-child{border-top:2px solid var(--accent)}#auth .grid>div:last-child{border-top:2px solid var(--violet)}
+.chat-box,.chat-thread,.chat-message{border-radius:4px}.chat-peer{width:100%;text-align:left;margin:5px 0;padding:12px}.chat-peer.active{border-color:var(--accent);background:#72e7ff15}
+footer{border-color:#ffffff20}#pb-progress{position:fixed;top:0;left:0;width:100%;height:2px;z-index:100;background:linear-gradient(90deg,#72e7ff,#9272ff);transform:scaleX(0);transform-origin:left}
+@media(max-width:600px){header{min-height:76px}.panel{padding:18px}.tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.tabs button{width:100%}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+</style></head><body><div id="pb-progress" aria-hidden="true"></div><div class="wrap">
 <header><a class="brand" href="index.html" style="text-decoration:none">Promo<span>Bridge</span> <small>PORTAL</small></a><div class="row"><span id="who" class="muted"></span><button id="logout" class="btn alt hidden">Log out</button></div></header>
 <section id="setup" class="panel"><h2>Connect your PromoBridge database</h2><p class="muted">Enter your Supabase project URL and public anon key. These are intended for browser use; never paste a service-role key here.</p><label>Supabase Project URL</label><input id="sbUrl" placeholder="https://YOUR-PROJECT.supabase.co"><label>Supabase anon/public key</label><input id="sbKey" placeholder="sb_publishable_... or legacy anon key"><button class="btn" id="saveConfig">Connect</button><p id="setupMsg" class="muted"></p></section>
 <section id="auth" class="panel hidden"><h1>Welcome to PromoBridge</h1><p class="muted">Create an account as an influencer or business, or sign in.</p><div class="grid">
@@ -276,4 +298,4 @@ config();
  });
 })();</script>
 
-</body></html>
+<script>(()=>{const bar=document.getElementById('pb-progress');let raf=0;const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;bar.style.transform='scaleX('+(max>0?scrollY/max:0)+')';raf=0};addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(update)},{passive:true});new ResizeObserver(update).observe(document.body);update()})();</script></body></html>
