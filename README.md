@@ -29,6 +29,8 @@ The 3D scene loads Three.js from jsDelivr and therefore requires an internet con
 - Accepted creators can submit a JPG, PNG or WebP proof image (maximum 8 MB) with the live post URL.
 - Admin-only proof review and restricted contact-review panel.
 - Private business/creator chat with realtime message refresh.
+- Payments workspace with server-created Cashfree checkout orders, signed webhook verification and provider-confirmed payment history (merchant credentials/onboarding still required).
+- 24-hour business proof review followed by final admin approval; final approval creates a commission-split payout record.
 - Detected phone numbers are redacted from participant-visible messages; detected originals are restricted to admin review.
 
 ## Backend and security
@@ -50,12 +52,30 @@ Phone-number detection is best-effort pattern matching, not a guarantee against 
 
 ## Not enabled yet
 
-- Payments, escrow or automatic payouts.
+- Live payment processing until merchant onboarding, provider approval and secure credentials are completed.
+- Creator bank/UPI/PayPal payouts or automatic transfers; payout records are tracking-only until an approved payout integration is connected.
+- PayPal, Stripe and crypto checkout (not connected).
 - Social account OAuth or automatic publishing.
 - Guaranteed creator reach, sales or campaign outcomes.
 - Automatic AI campaign matching.
 
-The portal must not be treated as a payment processor. A campaign request, chat or proof approval does not mean money has been transferred.
+PromoBridge does not itself act as a bank, payment aggregator or escrow provider. Payment status is updated only from a verified provider webhook. A campaign request, chat, proof approval or payout record does not mean money has been transferred.
+
+## Payments and creator payout workflow
+
+The current implementation uses a Cashfree checkout adapter as the first provider integration:
+
+- Approved business accounts can request checkout only after a creator accepts a campaign.
+- The server reads the amount from the booking record and creates the provider order; the browser cannot set the amount.
+- Cashfree hosted checkout is opened using a server-generated payment session.
+- Signed webhooks update payment status; redirects are not trusted as payment confirmation.
+- Payment-session tokens and webhook event records are restricted from browser access.
+- Campaign proof enters a 24-hour business review window. Final administrator approval creates a payout record using the booking commission rate.
+- A payout record is not a transfer. Creator payouts remain disabled until a compliant payout provider and beneficiary onboarding are configured.
+
+Cashfree credentials and webhook signing secret must be added only through Supabase Edge Function Secrets. Start in sandbox mode. Do not enable production until Cashfree has approved the business model and legal/tax review is complete.
+
+PayPal, Stripe and crypto are not connected. Crypto remains disabled pending specific legal, tax, AML and provider approval. Read [PAYMENTS_SETUP.md](PAYMENTS_SETUP.md) for onboarding, secret names, webhook setup and sandbox tests.
 
 ## Development notes
 
