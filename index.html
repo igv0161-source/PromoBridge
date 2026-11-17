@@ -154,10 +154,34 @@ section p,.card p,.step p{font-size:clamp(.9rem,1vw,1rem);line-height:1.75}
 @media(max-width:380px){.hero h1{font-size:3rem}.scene-viewport{height:370px}.nav{gap:8px}}
 @media(prefers-reduced-motion:reduce){.scene-viewport.scene-fallback{animation:none}}
 
+
+/* PROMOBRIDGE / REAL TOUCH + MOBILE NAV */
+.mobile-menu-toggle{display:none;align-items:center;justify-content:center;flex-direction:column;gap:5px;width:46px;height:46px;padding:10px;border:1px solid #ffffff35;border-radius:5px;background:#0d1725;color:#fff;cursor:pointer;touch-action:manipulation}
+.mobile-menu-toggle span{display:block;width:19px;height:2px;background:var(--cyan);transition:transform .2s,opacity .2s}
+.mobile-menu-toggle[aria-expanded="true"] span:first-child{transform:translateY(7px) rotate(45deg)}
+.mobile-menu-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.mobile-menu-toggle[aria-expanded="true"] span:last-child{transform:translateY(-7px) rotate(-45deg)}
+a[href],button,[role="button"],input[type="submit"],input[type="button"]{touch-action:manipulation}
+.pb-touch-active{transform:scale(.975)!important;filter:brightness(1.16) saturate(1.12);box-shadow:0 0 0 1px #72e7ff77,0 0 22px #72e7ff2b!important}
+.scene-node{min-height:48px;touch-action:manipulation}
+#pb-canvas{touch-action:pan-y}
+#pb-canvas:focus-visible{outline:2px solid var(--cyan);outline-offset:-4px}
+@media(max-width:600px){
+ .mobile-menu-toggle{display:flex}
+ header{position:sticky}
+ .nav{display:none;position:absolute;top:100%;left:0;right:0;z-index:40;flex-direction:column;gap:0;padding:8px 16px 14px;background:rgba(7,9,16,.97);border-bottom:1px solid #ffffff25;backdrop-filter:blur(18px)}
+ .nav.is-open{display:flex}
+ .nav a{display:flex;align-items:center;min-height:48px;padding:8px 4px;border-bottom:1px solid #ffffff13;font-size:.78rem}
+ .nav a:last-child{border-bottom:0}
+ .nav-actions .login{display:none}
+ .nav-actions .pill{padding:11px 12px;font-size:.68rem}
+}
+@media(prefers-reduced-motion:reduce){.mobile-menu-toggle span{transition:none}.pb-touch-active{transform:none!important;filter:none;box-shadow:none!important}}
+
 </style>
 </head>
 <body><div id="pb-progress" aria-hidden="true"></div><div id="pb-cursor" aria-hidden="true"></div>
-<header><a class="brand" href="#">Promo<b>Bridge.</b></a><nav class="nav"><a href="#creator">Creator space</a><a href="#opportunity">For brands</a><a href="#how">How it works</a><a href="#chat">Private chat</a></nav><div class="nav-actions"><a class="login" href="portal.html">Sign in</a><a class="pill" href="portal.html">Join PromoBridge <span>↗</span></a></div></header>
+<header><a class="brand" href="#">Promo<b>Bridge.</b></a><nav class="nav" id="pb-mobile-nav"><a href="#creator">Creator space</a><a href="#opportunity">For brands</a><a href="#how">How it works</a><a href="#chat">Private chat</a></nav><button class="mobile-menu-toggle" id="pb-menu-toggle" type="button" aria-controls="pb-mobile-nav" aria-expanded="false" aria-label="Open navigation"><span></span><span></span><span></span></button><div class="nav-actions"><a class="login" href="portal.html">Sign in</a><a class="pill" href="portal.html">Join PromoBridge <span>↗</span></a></div></header>
 <main>
 <div class="wrap hero">
  <div class="hero-copy"><div class="eyebrow">A home for creator collaborations</div><h1>Your content.<br>Your community.<br><span>Your next move.</span></h1><p>You put time, ideas and personality into what you create. PromoBridge gives you a place to show your work, meet businesses and turn the right conversations into real collaborations.</p><div class="hero-actions"><a class="pill" href="portal.html">Step into your creator space ↗</a><a class="pill ghost" href="#creator">Explore the world ↓</a></div><div class="hero-proof"><div><strong>Creator-first</strong>Not another ad dashboard</div><div><strong>Direct connection</strong>Talk to brands privately</div><div><strong>Your terms</strong>Agree before you commit</div></div></div>
@@ -165,7 +189,7 @@ section p,.card p,.step p{font-size:clamp(.9rem,1vw,1rem);line-height:1.75}
  <div class="hero-visual" aria-label="Interactive three-dimensional creator collaboration network">
   <div class="scene-topline"><span>PB / COLLABORATION NETWORK</span><span id="pb-scene-state">DRAG OR TAP TO EXPLORE</span></div>
   <div class="scene-viewport" id="pb-scene">
-   <canvas id="pb-canvas" aria-label="Interactive 3D network. Drag horizontally to rotate; tap a node to select it."></canvas>
+   <canvas id="pb-canvas" tabindex="0" role="img" aria-label="Interactive 3D network. Drag horizontally to rotate; tap a node to select it. Use arrow keys to rotate and keys 1 to 3 to select a node."></canvas>
    <div class="scene-crosshair" aria-hidden="true"></div>
    <div class="scene-caption"><span>01 — CONNECT</span><strong id="pb-scene-title">Creator energy</strong><p id="pb-scene-copy">Your voice is the starting point. Explore the network to see how each side connects.</p></div>
   </div>
@@ -247,6 +271,10 @@ document.querySelectorAll('section,.ticker,.final-cta').forEach(el=>{el.classLis
    canvas.addEventListener('pointerdown',e=>{down={x:e.clientX,y:e.clientY,id:e.pointerId};drag={x:e.clientX,y:e.clientY};canvas.setPointerCapture?.(e.pointerId);canvas.style.cursor='grabbing';});
    canvas.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x;const dy=e.clientY-drag.y;if(Math.abs(dx)>Math.abs(dy)*.65){group.rotation.y+=dx*.008;group.rotation.x+=dy*.003;}drag={x:e.clientX,y:e.clientY};});
    const end=e=>{if(!down)return;const moved=Math.hypot(e.clientX-down.x,e.clientY-down.y);if(moved<9)pick(e);down=null;drag=null;canvas.style.cursor='grab';};canvas.addEventListener('pointerup',end);canvas.addEventListener('pointercancel',()=>{down=null;drag=null;});
+   canvas.addEventListener('keydown',e=>{
+    if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();group.rotation.y+=(e.key==='ArrowLeft'?.16:e.key==='ArrowRight'?-.16:0);group.rotation.x+=(e.key==='ArrowUp'?.12:e.key==='ArrowDown'?-.12:0);}
+    if(e.key==='1'||e.key==='2'||e.key==='3')setSelected(['creator','brand','collab'][Number(e.key)-1]);
+   });
    const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible&&!raf)raf=requestAnimationFrame(draw);});observer.observe(host);
    const draw=()=>{raf=0;if(!visible||document.hidden)return;const t=performance.now()*.001;if(!reduced&&!drag){group.rotation.y+=.00135;group.rotation.x=Math.sin(t*.28)*.075;inner.rotation.y=t*.24;inner.rotation.x=t*.16;halo.scale.setScalar(1+Math.sin(t*1.4)*.045);arc.rotation.z=t*.13;}coreWire.rotation.x=t*.12;coreWire.rotation.y=-t*.16;nodes.forEach((n,i)=>{const pulse=1+Math.sin(t*1.7+i*2)*.13;n.scale.setScalar(pulse);n.position.y=defs[i].pos.y+Math.sin(t*1.2+i*2)*.045;});renderer.render(scene,camera);raf=requestAnimationFrame(draw);};
    document.addEventListener('visibilitychange',()=>{if(!document.hidden&&visible&&!raf)raf=requestAnimationFrame(draw);});
@@ -254,6 +282,31 @@ document.querySelectorAll('section,.ticker,.final-cta').forEach(el=>{el.classLis
   }catch(err){console.warn('PromoBridge 3D scene unavailable:',err);fallback();}
  };
  setSelected('creator');start();
+})();
+</script>
+
+<script>
+(()=> {
+ const menu=document.getElementById('pb-menu-toggle');
+ const nav=document.getElementById('pb-mobile-nav');
+ if(menu&&nav){
+  const close=()=>{nav.classList.remove('is-open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open navigation')};
+  menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';nav.classList.toggle('is-open',open);menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Close navigation':'Open navigation')});
+  nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
+  document.addEventListener('pointerdown',e=>{if(!nav.contains(e.target)&&!menu.contains(e.target))close()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){close();menu.focus()}});
+ }
+ const selector='a[href],button:not(:disabled),[role="button"],input[type="submit"]:not(:disabled),input[type="button"]:not(:disabled)';
+ let active=null,timer=0;
+ document.addEventListener('pointerdown',e=>{
+  const el=e.target.closest(selector);if(!el||el.closest('#pb-canvas'))return;
+  if(active)active.classList.remove('pb-touch-active');
+  active=el;active.classList.add('pb-touch-active');clearTimeout(timer);
+ },{passive:true});
+ const release=()=>{if(!active)return;const el=active;active=null;timer=setTimeout(()=>el.classList.remove('pb-touch-active'),150)};
+ document.addEventListener('pointerup',release,{passive:true});
+ document.addEventListener('pointercancel',release,{passive:true});
+ document.addEventListener('click',e=>{const el=e.target.closest('a[href]');if(el&&el.hash&&document.querySelector(el.hash)){const nav=document.getElementById('pb-mobile-nav'),toggle=document.getElementById('pb-menu-toggle');if(nav&&toggle){nav.classList.remove('is-open');toggle.setAttribute('aria-expanded','false')}}});
 })();
 </script>
 
