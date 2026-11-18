@@ -292,6 +292,105 @@ section.wrap{padding-top:clamp(42px,5vw,68px);padding-bottom:clamp(42px,5vw,68px
  section.wrap{padding-top:36px;padding-bottom:36px}
 }
 
+
+/* PROMOBRIDGE — CINEMATIC CREATOR SIGNAL / EDITORIAL MOTION SYSTEM */
+:root{--bg:#070a11;--panel:#0c1420;--cyan:#75eaff;--violet:#8f82ff;--ink:#f5f7fb;--muted:#9aa9b9}
+body{background:#070a11}
+body:before{z-index:0;opacity:.9;background:radial-gradient(ellipse at 76% 13%,#1b466b4a,transparent 38%),radial-gradient(ellipse at 5% 68%,#263d7430,transparent 36%),#070a11}
+body>*{position:relative;z-index:1}
+#pb-progress{z-index:40}
+header{background:#070a11d9;border-bottom-color:#ffffff12}
+.hero{width:min(1320px,calc(100% - 72px));min-height:calc(100svh - 78px);grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:clamp(24px,4vw,64px);padding:clamp(36px,5vh,64px) 0;overflow:hidden}
+.hero-copy{max-width:680px}
+.hero .eyebrow{letter-spacing:.22em}
+.hero h1{font-size:clamp(3.4rem,6.4vw,6.7rem);line-height:.9;letter-spacing:-.085em;margin:22px 0}
+.hero h1 span{color:transparent;background:linear-gradient(100deg,#76eaff 0%,#b2a7ff 48%,#f4f7ff 100%);background-clip:text;-webkit-background-clip:text}
+.hero-copy>p{max-width:530px;font-size:1rem;line-height:1.8;color:#aebdca}
+.hero-actions{margin-top:27px}
+.hero-proof{gap:22px;margin-top:34px}
+.hero-proof strong{font-size:.92rem}
+.bridge-stage{--px:50%;--py:50%;min-width:0;position:relative;align-self:center;padding:19px 22px 15px;border:1px solid #ffffff20;border-radius:5px;background:linear-gradient(145deg,#111c2cdd,#0a101bdc 62%,#111326e8);overflow:hidden;box-shadow:0 35px 100px #0009,inset 0 1px #ffffff10;isolation:isolate}
+.bridge-stage:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(380px circle at var(--px) var(--py),#69dfff1c,transparent 68%),linear-gradient(115deg,transparent 20%,#ffffff04 50%,transparent 80%);pointer-events:none}
+.bridge-stage:after{content:"";position:absolute;inset:12px;border:1px solid #ffffff0a;pointer-events:none}
+.bridge-stage-head,.bridge-stage-foot{display:flex;justify-content:space-between;gap:12px;align-items:center;color:#91a5b6;font-size:.58rem;letter-spacing:.17em;font-weight:800}
+.live-mark{color:#b9cbd5}.live-mark i{display:inline-block;width:6px;height:6px;border-radius:50%;background:#78f0c4;box-shadow:0 0 14px #78f0c4;margin-right:7px;animation:signalPulse 1.7s infinite}
+.bridge-stage-main{position:relative;padding:clamp(36px,5vw,65px) 0 20px}
+.bridge-index{display:flex;gap:9px;align-items:center;color:#778a9d;font-size:.64rem;letter-spacing:.2em}
+.bridge-bigtype{display:flex;flex-direction:column;font:800 clamp(3.5rem,7.5vw,7.5rem)/.77 Manrope,sans-serif;letter-spacing:-.095em;margin:22px 0 0;position:relative;z-index:2}
+.bridge-bigtype span:nth-child(2){padding-left:12%}
+.bridge-bigtype em{font-style:normal;font-size:.62em;letter-spacing:-.075em;color:transparent;-webkit-text-stroke:1px #c5d8e8;padding-left:28%;margin-top:9px}
+.bridge-route{width:100%;height:clamp(100px,15vw,160px);overflow:visible;margin:-2px 0 -7px;position:relative;z-index:1}
+.route-base,.route-active{fill:none;stroke-width:1.2;stroke-linecap:round}
+.route-base{stroke:#ffffff20;stroke-dasharray:3 8}
+.route-active{stroke:url(#routeGlow);stroke-width:2.2;stroke-dasharray:7 12;animation:routeFlow 4s linear infinite;filter:drop-shadow(0 0 5px #76eaff99)}
+.route-dot{fill:#0c1725;stroke:#91eaff;stroke-width:2;filter:drop-shadow(0 0 7px #76eaff)}
+.dot-two{stroke:#a99bff}
+.bridge-roles{display:grid;grid-template-columns:repeat(3,1fr);border-block:1px solid #ffffff1b}
+.bridge-role{appearance:none;text-align:left;position:relative;padding:14px 10px 15px 0;background:transparent;border:0;color:#8799a9;cursor:pointer;transition:color .25s,transform .25s;min-width:0}
+.bridge-role+.bridge-role{padding-left:14px;border-left:1px solid #ffffff17}
+.bridge-role span{display:block;font-size:.52rem;letter-spacing:.12em;margin-bottom:7px}
+.bridge-role strong{font:700 clamp(.9rem,1.4vw,1.15rem) Manrope;color:#dce7ef;display:block}
+.bridge-role i{position:absolute;right:10px;top:50%;font-style:normal;color:#61798c;transition:transform .25s,color .25s}
+.bridge-role.is-active{color:var(--cyan)}
+.bridge-role.is-active strong{color:#8cecff}
+.bridge-role.is-active i{color:var(--cyan);transform:translate(3px,-3px)}
+.bridge-role:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.bridge-note{min-height:91px;padding:17px 0 0}
+.bridge-note>span{font-size:.57rem;letter-spacing:.16em;color:#8cecff;font-weight:800}
+.bridge-note p{font-size:.82rem;line-height:1.65;color:#a8b8c7;margin:7px 0 0;max-width:520px}
+.bridge-stage-foot{padding-top:13px;border-top:1px solid #ffffff12;font-size:.53rem}
+@keyframes routeFlow{to{stroke-dashoffset:-76}}
+@keyframes signalPulse{50%{opacity:.35;box-shadow:0 0 3px #78f0c4}}
+.ticker{border-block-color:#ffffff12}
+.ticker-track{animation:marqueeFlow 34s linear infinite;width:max-content;min-width:100%;justify-content:flex-start}
+@keyframes marqueeFlow{to{transform:translateX(-25%)}}
+section{scroll-margin-top:90px}
+.section-head h2,.intro-copy h2,.campaign-copy h2,.chat-band h2,.manifesto h2,.final-cta h2{letter-spacing:-.08em}
+.path-card{border-radius:5px;background:linear-gradient(145deg,#101b2c,#0b111b);transition:transform .45s,border-color .45s,background .45s}
+.path-card:hover{transform:translateY(-7px);border-color:#78eaff66;background:linear-gradient(145deg,#14263a,#0b111b)}
+.chat-band{border-radius:5px;background:linear-gradient(115deg,#121f32,#0b121d 72%);border-color:#ffffff20}
+.chat-window{transform:none;border-radius:5px}
+.final-cta{border-radius:5px;background:linear-gradient(105deg,#83eaff,#b9b4ff);color:#09111a}
+.final-cta .eyebrow{color:#223b4b!important}
+.final-cta .pill{border-radius:3px}
+.pill{border-radius:4px;min-height:46px}
+.pill.ghost{border-radius:4px}
+a,button{-webkit-tap-highlight-color:transparent}
+.pb-touch-active{transform:scale(.97)!important;filter:brightness(1.18)}
+@media(max-width:950px){
+ .hero{width:calc(100% - 40px);min-height:0;grid-template-columns:1fr;gap:28px;padding:48px 0}
+ .hero-copy{max-width:780px}
+ .hero h1{font-size:clamp(3.3rem,10vw,6rem)}
+ .bridge-stage{width:min(760px,100%);margin:0 auto}
+ .bridge-stage-main{padding-top:38px}
+ .bridge-bigtype{font-size:clamp(4.2rem,12vw,7rem)}
+ .bridge-route{height:140px}
+}
+@media(max-width:600px){
+ .hero{width:calc(100% - 32px);padding:35px 0 36px;gap:24px}
+ .hero h1{font-size:clamp(2.9rem,13vw,4.2rem);margin:17px 0}
+ .hero-copy>p{font-size:.9rem}
+ .hero-proof{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
+ .bridge-stage{padding:15px 14px 12px}
+ .bridge-stage-head,.bridge-stage-foot{font-size:.47rem;letter-spacing:.1em}
+ .bridge-stage-main{padding:34px 0 16px}
+ .bridge-bigtype{font-size:clamp(3.5rem,16vw,5.2rem)}
+ .bridge-route{height:95px;margin:0 0 -4px}
+ .bridge-role{padding:11px 5px 12px 0}
+ .bridge-role+.bridge-role{padding-left:8px}
+ .bridge-role span{font-size:.43rem;letter-spacing:.07em}
+ .bridge-role strong{font-size:.82rem}
+ .bridge-role i{right:4px;font-size:.8rem}
+ .bridge-note{min-height:100px;padding-top:13px}
+ .bridge-note p{font-size:.76rem}
+ .bridge-stage-foot{gap:7px}
+ .hero-actions .pill{width:100%}
+}
+@media(prefers-reduced-motion:reduce){
+ .route-active,.live-mark i,.ticker-track{animation:none!important}
+ .path-card,.bridge-role{transition:none}
+}
+
 </style>
 </head>
 <body><div id="pb-progress" aria-hidden="true"></div><div id="pb-cursor" aria-hidden="true"></div>
@@ -300,22 +399,28 @@ section.wrap{padding-top:clamp(42px,5vw,68px);padding-bottom:clamp(42px,5vw,68px
 
 
 <div class="wrap hero">
- <div class="hero-copy"><div class="eyebrow">A home for creator collaborations</div><h1>Your content.<br>Your community.<br><span>Your next move.</span></h1><p>You put time, ideas and personality into what you create. PromoBridge gives you a place to show your work, meet businesses and turn the right conversations into real collaborations.</p><div class="hero-actions"><a class="pill" href="portal.html">Step into your creator space ↗</a><a class="pill ghost" href="#creator">Explore the world ↓</a></div><div class="hero-proof"><div><strong>Creator-first</strong>Not another ad dashboard</div><div><strong>Direct connection</strong>Talk to brands privately</div><div><strong>Your terms</strong>Agree before you commit</div></div></div>
+ <div class="hero-copy"><div class="eyebrow">A platform for creative momentum</div><h1>Make your<br>creative work<br><span>move culture.</span></h1><p>Your work deserves more than a passing scroll. Build your creator identity, meet businesses that value your voice and turn good conversations into clear collaborations.</p><div class="hero-actions"><a class="pill" href="portal.html">Step into your creator space ↗</a><a class="pill ghost" href="#creator">Explore the world ↓</a></div><div class="hero-proof"><div><strong>Creator-first</strong>Not another ad dashboard</div><div><strong>Direct connection</strong>Talk to brands privately</div><div><strong>Your terms</strong>Agree before you commit</div></div></div>
 
- <div class="hero-visual" aria-label="Interactive three-dimensional creator collaboration network">
-  <div class="scene-topline"><span>PB / COLLABORATION NETWORK</span><span id="pb-scene-state">DRAG OR TAP TO EXPLORE</span></div>
-  <div class="scene-viewport" id="pb-scene">
-   <canvas id="pb-canvas" tabindex="0" role="img" aria-label="Interactive 3D network. Drag horizontally to rotate; tap a node to select it. Use arrow keys to rotate and keys 1 to 3 to select a node."></canvas>
-   <div class="scene-crosshair" aria-hidden="true"></div>
-   <div class="scene-caption"><span>01 — CONNECT</span><strong id="pb-scene-title">Creator energy</strong><p id="pb-scene-copy">Your voice is the starting point. Explore the network to see how each side connects.</p></div>
+ <div class="hero-visual bridge-stage" aria-label="Interactive creator and brand collaboration experience">
+ <div class="bridge-stage-head"><span>PB / THE COLLABORATION SIGNAL</span><span class="live-mark"><i></i> OPEN TO CONNECTION</span></div>
+ <div class="bridge-stage-main">
+  <div class="bridge-index"><span>01</span><span>—</span><span>03</span></div>
+  <div class="bridge-bigtype" aria-hidden="true"><span>GOOD</span><span>WORK</span><em>TRAVELS.</em></div>
+  <svg class="bridge-route" viewBox="0 0 620 190" role="img" aria-label="A visual path connecting creators, brands and collaborations">
+   <defs><linearGradient id="routeGlow" x1="0" x2="1"><stop offset="0" stop-color="#6ce8ff"/><stop offset=".55" stop-color="#8c83ff"/><stop offset="1" stop-color="#e8faff"/></linearGradient></defs>
+   <path class="route-base" d="M34 94 C155 94 142 28 260 28 S390 160 586 94"/>
+   <path class="route-active" d="M34 94 C155 94 142 28 260 28 S390 160 586 94"/>
+   <circle class="route-dot dot-one" cx="34" cy="94" r="7"/><circle class="route-dot dot-two" cx="260" cy="28" r="7"/><circle class="route-dot dot-three" cx="586" cy="94" r="7"/>
+  </svg>
+  <div class="bridge-roles" role="group" aria-label="Explore collaboration roles">
+   <button class="bridge-role is-active" type="button" data-bridge="creator"><span>01 / THE VOICE</span><strong>Creator</strong><i>↗</i></button>
+   <button class="bridge-role" type="button" data-bridge="brand"><span>02 / THE BRIEF</span><strong>Brand</strong><i>↗</i></button>
+   <button class="bridge-role" type="button" data-bridge="collab"><span>03 / THE OUTCOME</span><strong>Together</strong><i>↗</i></button>
   </div>
-  <div class="scene-nodebar" aria-label="Explore network nodes">
-   <button type="button" class="scene-node active" data-node="creator">01 <span>Creator</span></button>
-   <button type="button" class="scene-node" data-node="brand">02 <span>Brand</span></button>
-   <button type="button" class="scene-node" data-node="collab">03 <span>Collaboration</span></button>
-  </div>
-  <div class="scene-foot"><span>INTERACTIVE 3D EXPERIENCE</span><span>TOUCH · DRAG · EXPLORE</span></div>
+  <div class="bridge-note"><span id="bridge-note-label">THE CREATOR STARTS THE SIGNAL</span><p id="bridge-note-copy">Your point of view is the thing people remember. Bring your style, your audience and your ideas.</p></div>
  </div>
+ <div class="bridge-stage-foot"><span>NOT ANOTHER AD DASHBOARD</span><span>SCROLL TO DISCOVER ↓</span></div>
+</div>
 
 </div>
 <section class="wrap inquiry-top inquiry-email-only" id="inquiry" aria-labelledby="inquiry-title">
@@ -350,67 +455,25 @@ document.querySelectorAll('section,.ticker,.final-cta').forEach(el=>{el.classLis
 <script>
 (()=>{const bar=document.getElementById('pb-progress'),cursor=document.getElementById('pb-cursor');let raf=0;const update=()=>{const max=document.documentElement.scrollHeight-innerHeight;bar.style.transform='scaleX('+(max>0?scrollY/max:0)+')';raf=0};addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(update)},{passive:true});update();if(matchMedia('(hover:hover) and (pointer:fine)').matches){addEventListener('pointermove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';cursor.style.opacity='1'},{passive:true});document.querySelectorAll('a,button,.path-card').forEach(el=>{el.addEventListener('pointerenter',()=>cursor.classList.add('active'));el.addEventListener('pointerleave',()=>cursor.classList.remove('active'))})}document.querySelectorAll('.path-card,.chat-band').forEach(el=>el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();el.style.setProperty('--mx',(e.clientX-r.left)+'px');el.style.setProperty('--my',(e.clientY-r.top)+'px')},{passive:true}));const sections=[...document.querySelectorAll('main section[id]')],links=[...document.querySelectorAll('.nav a')];const spy=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('current',a.hash==='#'+e.target.id))}),{rootMargin:'-35% 0px -55% 0px'});sections.forEach(s=>spy.observe(s))})();
 </script>
-<script type="module">
-(()=> {
- const canvas=document.getElementById('pb-canvas'),host=document.getElementById('pb-scene');
- if(!canvas||!host||host.dataset.ready)return;host.dataset.ready='1';
- const title=document.getElementById('pb-scene-title'),copy=document.getElementById('pb-scene-copy'),state=document.getElementById('pb-scene-state');
- const descriptions={
-  creator:['Creator energy','Your voice is the starting point. Build a profile around the work and community you already have.'],
-  brand:['Brand direction','Businesses bring a brief, a product and a goal. The right creator makes the story feel human.'],
-  collab:['A real collaboration','A clear conversation connects both sides: creative direction, deliverables, timing and agreed terms.']
+<script>
+(()=>{
+ const data={
+  creator:['THE CREATOR STARTS THE SIGNAL','Your point of view is the thing people remember. Bring your style, your audience and your ideas.'],
+  brand:['THE BRAND BRINGS THE OPPORTUNITY','A clear brief gives great creative work somewhere meaningful to go. Bring the goal, the product and the direction.'],
+  collab:['THE BEST WORK HAPPENS TOGETHER','A shared idea becomes a real collaboration when both sides agree on the story, deliverables and terms.']
  };
- const buttons=[...document.querySelectorAll('.scene-node')];let THREE,renderer,scene,camera,group,raycaster,mouse,nodes=[],raf=0,visible=true,drag=null,down=null,selected='creator',reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
- const setSelected=(key)=>{if(!descriptions[key])return;selected=key;title.textContent=descriptions[key][0];copy.textContent=descriptions[key][1];buttons.forEach(b=>b.classList.toggle('active',b.dataset.node===key));if(state)state.textContent='SELECTED / '+key.toUpperCase()};
- buttons.forEach(b=>b.addEventListener('click',()=>{setSelected(b.dataset.node);if(group){const i=['creator','brand','collab'].indexOf(b.dataset.node);group.rotation.y=-i*2.094+.25;}}));
- const fallback=()=>{host.classList.add('scene-fallback');if(state)state.textContent='3D UNAVAILABLE / USE THE CONTROLS';canvas.style.display='none';};
- const start=async()=>{
-  try{
-   THREE=await import('https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js');
-   renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true,powerPreference:'low-power'});
-   renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.5));renderer.setClearColor(0x000000,0);
-   scene=new THREE.Scene();camera=new THREE.PerspectiveCamera(38,1,.1,100);camera.position.set(0,0,8.4);
-   scene.add(new THREE.AmbientLight(0x8fbfff,1.65));
-   const key=new THREE.PointLight(0x72e7ff,28,18);key.position.set(3,3,5);scene.add(key);
-   const violet=new THREE.PointLight(0x9272ff,18,16);violet.position.set(-3,-2,2);scene.add(violet);
-   group=new THREE.Group();scene.add(group);
-   const core=new THREE.Mesh(new THREE.SphereGeometry(.76,64,48),new THREE.MeshPhysicalMaterial({color:0x163d58,metalness:.42,roughness:.12,transmission:.28,thickness:1.1,ior:1.32,clearcoat:1,clearcoatRoughness:.08,emissive:0x0b3855,emissiveIntensity:.72}));
-   group.add(core);
-   const inner=new THREE.Mesh(new THREE.IcosahedronGeometry(.48,2),new THREE.MeshStandardMaterial({color:0x8deeff,metalness:.8,roughness:.18,emissive:0x1a8cb4,emissiveIntensity:1.1}));
-   group.add(inner);
-   const coreWire=new THREE.Mesh(new THREE.IcosahedronGeometry(.88,2),new THREE.MeshBasicMaterial({color:0x9befff,wireframe:true,transparent:true,opacity:.25}));group.add(coreWire);
-   const halo=new THREE.Mesh(new THREE.SphereGeometry(1.04,40,32),new THREE.MeshBasicMaterial({color:0x4ecfff,transparent:true,opacity:.045,side:THREE.BackSide}));group.add(halo);
-   for(let i=0;i<5;i++){const ring=new THREE.Mesh(new THREE.TorusGeometry(2.05+i*.075,.009,8,180),new THREE.MeshBasicMaterial({color:i%2?0xa18bff:0x72e7ff,transparent:true,opacity:.5-i*.055}));ring.rotation.x=Math.PI/2+(i-2)*.31;ring.rotation.y=(i-2)*.29;ring.rotation.z=(i-2)*.19;group.add(ring);}
-   const arc=new THREE.Mesh(new THREE.TorusGeometry(2.48,.018,8,180,Math.PI*1.28),new THREE.MeshBasicMaterial({color:0x9deeff,transparent:true,opacity:.55}));arc.rotation.set(.7,.3,.2);group.add(arc);
-   const defs=[
-    {key:'creator',color:0x72e7ff,pos:new THREE.Vector3(0,2.12,.15)},
-    {key:'brand',color:0x9272ff,pos:new THREE.Vector3(-1.84,-1.04,-.18)},
-    {key:'collab',color:0xb9e8ff,pos:new THREE.Vector3(1.84,-1.04,.18)}
-   ];
-   defs.forEach((d,i)=>{
-    const line=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),d.pos]);group.add(new THREE.Line(line,new THREE.LineBasicMaterial({color:d.color,transparent:true,opacity:.68})));
-    const halo=new THREE.Mesh(new THREE.SphereGeometry(.36,24,24),new THREE.MeshBasicMaterial({color:d.color,transparent:true,opacity:.13}));halo.position.copy(d.pos);group.add(halo);
-    const mesh=new THREE.Mesh(new THREE.SphereGeometry(.19,32,24),new THREE.MeshPhysicalMaterial({color:d.color,metalness:.32,roughness:.1,clearcoat:1,emissive:d.color,emissiveIntensity:.52}));mesh.position.copy(d.pos);mesh.userData.key=d.key;group.add(mesh);const haloRing=new THREE.Mesh(new THREE.TorusGeometry(.34,.009,8,60),new THREE.MeshBasicMaterial({color:d.color,transparent:true,opacity:.65}));haloRing.position.copy(d.pos);haloRing.rotation.x=.9+i*.4;group.add(haloRing);nodes.push(mesh);
-   });
-   const dustGeo=new THREE.BufferGeometry(),positions=[];for(let i=0;i<130;i++){positions.push((Math.random()-.5)*7,(Math.random()-.5)*5,(Math.random()-.5)*3);}
-   dustGeo.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));group.add(new THREE.Points(dustGeo,new THREE.PointsMaterial({color:0x8fb8d6,size:.018,transparent:true,opacity:.48})));
-   raycaster=new THREE.Raycaster();mouse=new THREE.Vector2();
-   const resize=()=>{const r=host.getBoundingClientRect();if(!r.width||!r.height)return;renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix();};new ResizeObserver(resize).observe(host);resize();
-   const pick=(e)=>{const r=canvas.getBoundingClientRect();mouse.x=((e.clientX-r.left)/r.width)*2-1;mouse.y=-((e.clientY-r.top)/r.height)*2+1;raycaster.setFromCamera(mouse,camera);const hit=raycaster.intersectObjects(nodes,false)[0];if(hit)setSelected(hit.object.userData.key);};
-   canvas.addEventListener('pointerdown',e=>{down={x:e.clientX,y:e.clientY,id:e.pointerId};drag={x:e.clientX,y:e.clientY};canvas.setPointerCapture?.(e.pointerId);canvas.style.cursor='grabbing';});
-   canvas.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x;const dy=e.clientY-drag.y;if(Math.abs(dx)>Math.abs(dy)*.65){group.rotation.y+=dx*.008;group.rotation.x+=dy*.003;}drag={x:e.clientX,y:e.clientY};});
-   const end=e=>{if(!down)return;const moved=Math.hypot(e.clientX-down.x,e.clientY-down.y);if(moved<9)pick(e);down=null;drag=null;canvas.style.cursor='grab';};canvas.addEventListener('pointerup',end);canvas.addEventListener('pointercancel',()=>{down=null;drag=null;});
-   canvas.addEventListener('keydown',e=>{
-    if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();group.rotation.y+=(e.key==='ArrowLeft'?.16:e.key==='ArrowRight'?-.16:0);group.rotation.x+=(e.key==='ArrowUp'?.12:e.key==='ArrowDown'?-.12:0);}
-    if(e.key==='1'||e.key==='2'||e.key==='3')setSelected(['creator','brand','collab'][Number(e.key)-1]);
-   });
-   const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible&&!raf)raf=requestAnimationFrame(draw);});observer.observe(host);
-   const draw=()=>{raf=0;if(!visible||document.hidden)return;const t=performance.now()*.001;if(!reduced&&!drag){group.rotation.y+=.00135;group.rotation.x=Math.sin(t*.28)*.075;inner.rotation.y=t*.24;inner.rotation.x=t*.16;halo.scale.setScalar(1+Math.sin(t*1.4)*.045);arc.rotation.z=t*.13;}coreWire.rotation.x=t*.12;coreWire.rotation.y=-t*.16;nodes.forEach((n,i)=>{const pulse=1+Math.sin(t*1.7+i*2)*.13;n.scale.setScalar(pulse);n.position.y=defs[i].pos.y+Math.sin(t*1.2+i*2)*.045;});renderer.render(scene,camera);raf=requestAnimationFrame(draw);};
-   document.addEventListener('visibilitychange',()=>{if(!document.hidden&&visible&&!raf)raf=requestAnimationFrame(draw);});
-   if(state)state.textContent='READY / DRAG OR TAP A NODE';draw();
-  }catch(err){console.warn('PromoBridge 3D scene unavailable:',err);fallback();}
- };
- setSelected('creator');start();
+ const buttons=[...document.querySelectorAll('.bridge-role')];
+ const label=document.getElementById('bridge-note-label'),copy=document.getElementById('bridge-note-copy');
+ buttons.forEach(button=>button.addEventListener('click',()=>{
+  const key=button.dataset.bridge;if(!data[key])return;
+  buttons.forEach(item=>item.classList.toggle('is-active',item===button));
+  label.textContent=data[key][0];copy.textContent=data[key][1];
+  document.querySelector('.bridge-stage')?.setAttribute('data-active',key);
+ }));
+ const stage=document.querySelector('.bridge-stage');
+ if(stage&&matchMedia('(hover:hover) and (pointer:fine)').matches){
+  stage.addEventListener('pointermove',e=>{const r=stage.getBoundingClientRect();stage.style.setProperty('--px',((e.clientX-r.left)/r.width*100)+'%');stage.style.setProperty('--py',((e.clientY-r.top)/r.height*100)+'%')},{passive:true});
+ }
 })();
 </script>
 
