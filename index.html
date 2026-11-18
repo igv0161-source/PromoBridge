@@ -427,6 +427,23 @@ footer .footer-contact span{font-size:.62rem;letter-spacing:.18em;color:var(--cy
  .pb-site-header .mobile-menu-toggle:focus-visible,.pb-site-header .nav a:focus-visible{outline:2px solid #75eaff;outline-offset:3px}
 }
 @media(min-width:601px){.pb-site-header .mobile-menu-toggle{display:none!important}}
+
+/* LUSION-INSPIRED OPENING TYPOGRAPHY — original PromoBridge motion */
+.hero h1{display:block}
+.hero h1 .pb-title-line{display:block;overflow:hidden;position:relative;white-space:nowrap;color:inherit!important;background:none!important;-webkit-text-fill-color:currentColor!important}
+.hero h1 .pb-title-inner{display:block;transform:translate3d(0,112%,0);opacity:0;animation:pbTitleRise 1.05s cubic-bezier(.16,1,.3,1) forwards}
+.hero h1 .pb-title-line:nth-child(1) .pb-title-inner{animation-delay:.12s}
+.hero h1 .pb-title-line:nth-child(2) .pb-title-inner{animation-delay:.27s}
+.hero h1 .pb-title-line:nth-child(3) .pb-title-inner{animation-delay:.42s}
+.hero h1 .pb-title-inner.pb-title-accent{color:transparent!important;background:linear-gradient(100deg,#72e7ff 5%,#b3c7ff 48%,#9a7aff 95%)!important;background-clip:text!important;-webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important}
+.hero-copy>.eyebrow{animation:pbIntroFade .7s ease both;animation-delay:.02s}
+.hero-copy>p{animation:pbIntroFade .8s ease both;animation-delay:.68s}
+.hero-copy>.hero-actions{animation:pbIntroFade .8s ease both;animation-delay:.82s}
+.hero-copy>.hero-proof{animation:pbIntroFade .8s ease both;animation-delay:.96s}
+@keyframes pbTitleRise{to{transform:translate3d(0,0,0);opacity:1}}
+@keyframes pbIntroFade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.hero h1 .pb-title-inner,.hero-copy>.eyebrow,.hero-copy>p,.hero-copy>.hero-actions,.hero-copy>.hero-proof{animation:none!important;transform:none!important;opacity:1!important}}
+
 </style>
 </head>
 <body><div id="pb-progress" aria-hidden="true"></div><div id="pb-cursor" aria-hidden="true"></div>
@@ -435,7 +452,7 @@ footer .footer-contact span{font-size:.62rem;letter-spacing:.18em;color:var(--cy
 
 
 <div class="wrap hero">
- <div class="hero-copy"><div class="eyebrow">THE CREATOR–BRAND CONNECTION PLATFORM</div><h1>Make your<br>creativity<br><span>go further.</span></h1><p>Your creativity is already doing the talking. PromoBridge helps it reach the right businesses, open better conversations and take shape as collaborations—with the details agreed by both sides.</p><div class="hero-actions"><a class="pill" href="portal.html">Build your creator profile ↗</a><a class="pill ghost" href="#creator">Discover how it works ↓</a></div><div class="hero-proof"><div><strong>Built around creators</strong>Your voice stays yours</div><div><strong>Direct conversations</strong>Connect inside the portal</div><div><strong>Clear agreements</strong>Align before work begins</div></div></div>
+ <div class="hero-copy"><div class="eyebrow">THE CREATOR–BRAND CONNECTION PLATFORM</div><h1 aria-label="Make your creativity go further."><span class="pb-title-line"><span class="pb-title-inner">Make your</span></span><span class="pb-title-line"><span class="pb-title-inner">creativity</span></span><span class="pb-title-line"><span class="pb-title-inner pb-title-accent">go further.</span></span></h1><p>Your creativity is already doing the talking. PromoBridge helps it reach the right businesses, open better conversations and take shape as collaborations—with the details agreed by both sides.</p><div class="hero-actions"><a class="pill" href="portal.html">Build your creator profile ↗</a><a class="pill ghost" href="#creator">Discover how it works ↓</a></div><div class="hero-proof"><div><strong>Built around creators</strong>Your voice stays yours</div><div><strong>Direct conversations</strong>Connect inside the portal</div><div><strong>Clear agreements</strong>Align before work begins</div></div></div>
 
  <div class="hero-visual bridge-stage" aria-label="Interactive creator and brand collaboration experience">
  <div class="bridge-stage-head"><span>PB / THE COLLABORATION SIGNAL</span><span class="live-mark"><i></i> OPEN TO CONNECTION</span></div>
