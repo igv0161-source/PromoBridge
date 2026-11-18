@@ -200,23 +200,45 @@ a[href],button,[role="button"],input[type="submit"],input[type="button"]{touch-a
 @media(max-width:900px){.inquiry-email-only{grid-template-columns:1fr;gap:20px}.inquiry-email-link{width:max-content;max-width:100%}}
 @media(max-width:600px){.inquiry-email-only{padding:24px 18px}.inquiry-email-link{width:100%;gap:10px;padding:17px 13px;flex-wrap:wrap}.inquiry-email-link strong{font-size:.82rem;flex:1;min-width:0}.inquiry-email-link span{font-size:.52rem}}
 
+
+/* PROMOBRIDGE / LAYOUT REFINEMENT — HERO FIRST, DIRECT CONTACT SECOND */
+.inquiry-top.inquiry-email-only{
+ width:min(1320px,calc(100% - 64px));margin:0 auto;padding:clamp(22px,3.2vw,38px) clamp(22px,4vw,52px);
+ grid-template-columns:minmax(0,1fr) auto;gap:clamp(22px,4vw,56px);border:0;border-block:1px solid #ffffff22;
+ background:linear-gradient(100deg,#0d1726 0%,#0a101b 68%,#11142a 100%);box-shadow:none
+}
+.inquiry-top.inquiry-email-only:before{width:300px;height:300px;right:-150px;top:-205px;opacity:.7}
+.inquiry-email-only .inquiry-intro h2{font-size:clamp(1.7rem,3.2vw,3.15rem);line-height:1.02;letter-spacing:-.065em;margin:10px 0 8px}
+.inquiry-email-only .inquiry-intro p{font-size:.88rem;line-height:1.65;margin:0;max-width:560px}
+.inquiry-email-only .eyebrow{font-size:.58rem;letter-spacing:.2em}
+.inquiry-email-link{min-width:min(430px,100%);padding:19px 22px;border-color:#72e7ff55;background:#0b1422;box-shadow:0 12px 38px #0004}
+.inquiry-email-link strong{font-size:clamp(.84rem,1.15vw,1rem)}
+.hero{padding-top:clamp(48px,6vh,78px);padding-bottom:clamp(55px,7vh,82px)}
+.hero h1{max-width:780px}
+.hero-visual{filter:drop-shadow(0 22px 45px #0005)}
+.scene-viewport{border-color:#ffffff2a;box-shadow:inset 0 0 80px #72e7ff08}
+.scene-node{min-height:60px}
+.path-card{min-height:420px}
+.path-card .pill,.hero-actions .pill,.final-cta .pill{min-height:48px}
+section[id="creator"],section[id="opportunity"],section[id="how"],section[id="chat"]{scroll-margin-top:100px}
+@media(max-width:950px){.inquiry-top.inquiry-email-only{width:calc(100% - 44px);grid-template-columns:1fr;gap:18px}.inquiry-email-link{width:max-content;max-width:100%;min-width:0}}
+@media(max-width:600px){
+ .inquiry-top.inquiry-email-only{width:calc(100% - 36px);padding:22px 0;gap:16px}
+ .inquiry-email-only .inquiry-intro h2{font-size:2rem;max-width:520px}
+ .inquiry-email-only .inquiry-intro p{font-size:.82rem}
+ .inquiry-email-link{width:100%;padding:16px 13px;gap:9px}
+ .inquiry-email-link strong{font-size:.78rem}
+ .hero{padding-top:44px;padding-bottom:48px}
+ .scene-viewport{height:360px;min-height:320px}
+ .scene-node{min-height:58px}
+}
+
 </style>
 </head>
 <body><div id="pb-progress" aria-hidden="true"></div><div id="pb-cursor" aria-hidden="true"></div>
 <header><a class="brand" href="#">Promo<b>Bridge.</b></a><nav class="nav" id="pb-mobile-nav"><a href="#inquiry">Inquiry</a><a href="#creator">Creator space</a><a href="#opportunity">For brands</a><a href="#how">How it works</a><a href="#chat">Private chat</a></nav><button class="mobile-menu-toggle" id="pb-menu-toggle" type="button" aria-controls="pb-mobile-nav" aria-expanded="false" aria-label="Open navigation"><span></span><span></span><span></span></button><div class="nav-actions"><a class="login" href="portal.html">Sign in</a><a class="pill" href="portal.html">Join PromoBridge <span>↗</span></a></div></header>
 <main>
-<section class="wrap inquiry-top inquiry-email-only" id="inquiry" aria-labelledby="inquiry-title">
- <div class="inquiry-intro">
-  <div class="eyebrow">PROMOBRIDGE / ENQUIRIES</div>
-  <h2 id="inquiry-title">Have a question or collaboration in mind?</h2>
-  <p>For creator, business and partnership enquiries, contact us by email.</p>
- </div>
- <a class="inquiry-email-link" href="mailto:singareaaditya111@gmail.com">
-  <span>EMAIL US</span>
-  <strong>singareaaditya111@gmail.com</strong>
-  <b aria-hidden="true">↗</b>
- </a>
-</section>
+
 
 <div class="wrap hero">
  <div class="hero-copy"><div class="eyebrow">A home for creator collaborations</div><h1>Your content.<br>Your community.<br><span>Your next move.</span></h1><p>You put time, ideas and personality into what you create. PromoBridge gives you a place to show your work, meet businesses and turn the right conversations into real collaborations.</p><div class="hero-actions"><a class="pill" href="portal.html">Step into your creator space ↗</a><a class="pill ghost" href="#creator">Explore the world ↓</a></div><div class="hero-proof"><div><strong>Creator-first</strong>Not another ad dashboard</div><div><strong>Direct connection</strong>Talk to brands privately</div><div><strong>Your terms</strong>Agree before you commit</div></div></div>
@@ -237,6 +259,19 @@ a[href],button,[role="button"],input[type="submit"],input[type="button"]{touch-a
  </div>
 
 </div>
+<section class="wrap inquiry-top inquiry-email-only" id="inquiry" aria-labelledby="inquiry-title">
+ <div class="inquiry-intro">
+  <div class="eyebrow">PROMOBRIDGE / ENQUIRIES</div>
+  <h2 id="inquiry-title">Have a question or collaboration in mind?</h2>
+  <p>For creator, business and partnership enquiries, contact us by email.</p>
+ </div>
+ <a class="inquiry-email-link" href="mailto:singareaaditya111@gmail.com">
+  <span>EMAIL US</span>
+  <strong>singareaaditya111@gmail.com</strong>
+  <b aria-hidden="true">↗</b>
+ </a>
+</section>
+
 <div class="ticker"><div class="ticker-track"><span>Make things that matter</span><b>✳</b><span>Build your creator identity</span><b>✳</b><span>Collaborate on your terms</span><b>✳</b><span>Grow through good partnerships</span><b>✳</b></div></div>
 <section class="wrap" id="creator"><div class="creator-intro"><div class="intro-copy"><div class="eyebrow">This space is for your kind of creativity</div><h2>Not just followers. A point of view.</h2><p>Maybe you make reels, tell stories, review products, shoot photos, share local discoveries or build a community around something you love. Your creative voice is what makes your work valuable.</p><p>PromoBridge is designed to help creators present their profile, connect with businesses and discuss work without losing the human side of collaboration.</p><div class="creator-points"><div class="creator-point"><strong>Show your niche</strong><span>Let your style and focus speak.</span></div><div class="creator-point"><strong>Own the conversation</strong><span>Discuss briefs directly.</span></div><div class="creator-point"><strong>Set clear terms</strong><span>Agree on deliverables first.</span></div><div class="creator-point"><strong>Build relationships</strong><span>Make partnerships meaningful.</span></div></div></div></div></section>
 <section class="wrap" id="opportunity"><div class="section-head"><div><div class="eyebrow">Two sides. One creative connection.</div><h2>Creators bring the story.<br>Brands bring the brief.</h2></div><p>The best partnerships start when both sides understand each other. PromoBridge gives creators and businesses a shared place to make that happen.</p></div><div class="path-grid"><article class="path-card"><div class="path-content"><div class="tag">FOR CREATORS / 01</div><h3>Make your creativity<br>part of the opportunity.</h3><p>Build your creator profile, connect with businesses and talk through campaigns that make sense for your content and audience.</p><a class="pill" href="portal.html?role=influencer">Join as a creator ↗</a></div></article><article class="path-card"><div class="path-content"><div class="tag">FOR BUSINESSES / 02</div><h3>Find a voice people<br>actually connect with.</h3><p>Discover approved creators, share your campaign brief and agree on content, timing and terms together.</p><a class="pill ghost" href="portal.html?role=business">Join as a business ↗</a></div></article></div></section>
