@@ -406,10 +406,31 @@ a,button{-webkit-tap-highlight-color:transparent}
 footer .footer-contact{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 footer .footer-contact span{font-size:.62rem;letter-spacing:.18em;color:var(--cyan);font-weight:800}
 @media(max-width:600px){.inquiry-top.inquiry-email-only{padding:18px 15px}.inquiry-email-link{width:100%;min-width:0}.inquiry-email-link strong{overflow-wrap:anywhere}.creator-point{padding:17px 4px 17px 0}.steps .step:hover{padding-left:0}}
+
+/* MOBILE HEADER — STABLE ALIGNMENT + RELIABLE DROPDOWN */
+.pb-site-header{position:sticky;top:0;z-index:60;isolation:isolate;overflow:visible}
+.pb-site-header .brand{flex:0 0 auto}
+.pb-site-header .nav{align-items:center}
+.mobile-nav-account{display:none}
+.pb-site-header .mobile-menu-toggle{flex:0 0 46px;margin-left:0;position:relative;z-index:62}
+@media(max-width:600px){
+ .pb-site-header{height:68px;min-height:68px;padding:0 16px!important;display:flex;align-items:center;justify-content:space-between;gap:12px}
+ .pb-site-header .brand{margin:0;line-height:1;position:relative;z-index:62}
+ .pb-site-header .nav-actions{display:none!important}
+ .pb-site-header .mobile-menu-toggle{display:flex!important;margin-left:auto;align-self:center;order:3;width:46px;height:46px;min-width:46px;padding:0;border:1px solid #75eaff65;border-radius:6px;background:#0c1725;box-shadow:0 5px 22px #0005}
+ .pb-site-header .nav{display:none;position:absolute;top:calc(100% + 8px);left:auto;right:12px;width:min(340px,calc(100vw - 24px));max-height:min(72vh,560px);overflow-y:auto;overscroll-behavior:contain;z-index:61;flex-direction:column;align-items:stretch;gap:0;padding:10px 14px 14px;background:rgba(8,14,24,.985);border:1px solid #75eaff45;border-radius:8px;box-shadow:0 22px 70px #000b,0 0 28px #75eaff12;backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+ .pb-site-header .nav.is-open{display:flex}
+ .pb-site-header .nav>a{display:flex;align-items:center;justify-content:flex-start;min-height:50px;padding:10px 8px;border-bottom:1px solid #ffffff13;font-size:.84rem;line-height:1.3;color:#e8f2fb;text-decoration:none}
+ .pb-site-header .nav>a:last-child{border-bottom:0}
+ .pb-site-header .nav>a.mobile-nav-account{display:flex;color:#91eaff;font-weight:750}
+ .pb-site-header .nav>a.mobile-nav-join{margin-top:9px;min-height:46px;justify-content:center;border:1px solid #75eaff65;border-radius:5px;background:linear-gradient(100deg,#75eaff18,#9b8cff18)}
+ .pb-site-header .mobile-menu-toggle:focus-visible,.pb-site-header .nav a:focus-visible{outline:2px solid #75eaff;outline-offset:3px}
+}
+@media(min-width:601px){.pb-site-header .mobile-menu-toggle{display:none!important}}
 </style>
 </head>
 <body><div id="pb-progress" aria-hidden="true"></div><div id="pb-cursor" aria-hidden="true"></div>
-<header><a class="brand" href="#">Promo<b>Bridge.</b></a><nav class="nav" id="pb-mobile-nav"><a href="#inquiry">Inquiry</a><a href="#creator">Creator space</a><a href="#opportunity">For brands</a><a href="#how">How it works</a><a href="#chat">Private chat</a></nav><button class="mobile-menu-toggle" id="pb-menu-toggle" type="button" aria-controls="pb-mobile-nav" aria-expanded="false" aria-label="Open navigation"><span></span><span></span><span></span></button><div class="nav-actions"><a class="login" href="portal.html">Sign in</a><a class="pill" href="portal.html">Join PromoBridge <span>↗</span></a></div></header>
+<header class="pb-site-header"><a class="brand" href="#" aria-label="PromoBridge home">Promo<b>Bridge.</b></a><nav class="nav" id="pb-mobile-nav" aria-label="Main navigation"><a href="#inquiry">Inquiry</a><a href="#creator">Creator space</a><a href="#opportunity">For brands</a><a href="#how">How it works</a><a href="#chat">Private chat</a><a class="mobile-nav-account" href="portal.html">Sign in to your account ↗</a><a class="mobile-nav-account mobile-nav-join" href="portal.html">Join PromoBridge ↗</a></nav><div class="nav-actions"><a class="login" href="portal.html">Sign in</a><a class="pill" href="portal.html">Join PromoBridge <span>↗</span></a></div><button class="mobile-menu-toggle" id="pb-menu-toggle" type="button" aria-controls="pb-mobile-nav" aria-expanded="false" aria-label="Open navigation"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></button></header>
 <main>
 
 
@@ -493,15 +514,32 @@ document.querySelectorAll('section,.ticker,.final-cta').forEach(el=>{el.classLis
 </script>
 
 <script>
-(()=> {
+(()=>{
  const menu=document.getElementById('pb-menu-toggle');
  const nav=document.getElementById('pb-mobile-nav');
  if(menu&&nav){
-  const close=()=>{nav.classList.remove('is-open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open navigation')};
-  menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';nav.classList.toggle('is-open',open);menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Close navigation':'Open navigation')});
+  const close=()=>{
+   nav.classList.remove('is-open');
+   menu.setAttribute('aria-expanded','false');
+   menu.setAttribute('aria-label','Open navigation');
+  };
+  const open=()=>{
+   nav.classList.add('is-open');
+   menu.setAttribute('aria-expanded','true');
+   menu.setAttribute('aria-label','Close navigation');
+  };
+  menu.addEventListener('click',e=>{
+   e.preventDefault();e.stopPropagation();
+   menu.getAttribute('aria-expanded')==='true'?close():open();
+  });
   nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
-  document.addEventListener('pointerdown',e=>{if(!nav.contains(e.target)&&!menu.contains(e.target))close()});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'){close();menu.focus()}});
+  document.addEventListener('pointerdown',e=>{
+   if(menu.getAttribute('aria-expanded')==='true'&&!nav.contains(e.target)&&!menu.contains(e.target))close();
+  });
+  document.addEventListener('keydown',e=>{
+   if(e.key==='Escape'&&menu.getAttribute('aria-expanded')==='true'){close();menu.focus();}
+  });
+  window.addEventListener('resize',()=>{if(window.innerWidth>600)close();});
  }
  const selector='a[href],button:not(:disabled),[role="button"],input[type="submit"]:not(:disabled),input[type="button"]:not(:disabled)';
  let active=null,timer=0;
@@ -513,7 +551,12 @@ document.querySelectorAll('section,.ticker,.final-cta').forEach(el=>{el.classLis
  const release=()=>{if(!active)return;const el=active;active=null;timer=setTimeout(()=>el.classList.remove('pb-touch-active'),150)};
  document.addEventListener('pointerup',release,{passive:true});
  document.addEventListener('pointercancel',release,{passive:true});
- document.addEventListener('click',e=>{const el=e.target.closest('a[href]');if(el&&el.hash&&document.querySelector(el.hash)){const nav=document.getElementById('pb-mobile-nav'),toggle=document.getElementById('pb-menu-toggle');if(nav&&toggle){nav.classList.remove('is-open');toggle.setAttribute('aria-expanded','false')}}});
+ document.addEventListener('click',e=>{
+  const el=e.target.closest('a[href]');
+  if(el&&el.hash&&document.querySelector(el.hash)&&menu&&nav){
+   nav.classList.remove('is-open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open navigation');
+  }
+ });
 })();
 </script>
 
