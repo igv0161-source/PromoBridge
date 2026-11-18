@@ -178,11 +178,40 @@ a[href],button,[role="button"],input[type="submit"],input[type="button"]{touch-a
 }
 @media(prefers-reduced-motion:reduce){.mobile-menu-toggle span{transition:none}.pb-touch-active{transform:none!important;filter:none;box-shadow:none!important}}
 
+
+/* PROMOBRIDGE / INQUIRY-FIRST HOMEPAGE */
+.inquiry-top{width:min(1320px,calc(100% - 64px));padding:clamp(30px,4.5vw,64px);margin:24px auto 0;display:grid;grid-template-columns:minmax(0,.85fr) minmax(420px,1.15fr);gap:clamp(28px,5vw,76px);align-items:center;position:relative;overflow:hidden;border:1px solid #ffffff20;background:linear-gradient(118deg,#101a2b 0%,#0b111d 56%,#15132a 100%);box-shadow:0 25px 90px #0005}
+.inquiry-top:before{content:"";position:absolute;width:430px;height:430px;border:1px solid #72e7ff18;border-radius:50%;right:-160px;top:-260px;box-shadow:0 0 0 38px #72e7ff08,0 0 0 78px #9272ff08;pointer-events:none}
+.inquiry-intro,.inquiry-form{position:relative;z-index:1}.inquiry-intro h2{font:800 clamp(2.6rem,4.4vw,4.7rem)/.93 Manrope;letter-spacing:-.08em;margin:20px 0}.inquiry-intro p{max-width:440px;color:#aab7c8;line-height:1.85}.inquiry-meta{display:flex;flex-wrap:wrap;gap:12px 22px;margin-top:32px;color:#8193aa;font-size:.58rem;letter-spacing:.14em;font-weight:800}.inquiry-meta span:first-child{color:#c7d5e4}.inquiry-meta i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#72e7ff;box-shadow:0 0 14px #72e7ff;margin-right:8px}
+.inquiry-form{padding:clamp(20px,3vw,32px);border:1px solid #ffffff20;background:#080e19d9;box-shadow:0 18px 60px #0005}.inquiry-form-head{display:flex;justify-content:space-between;gap:10px;padding-bottom:18px;margin-bottom:20px;border-bottom:1px solid #ffffff1b;color:#72e7ff;font-size:.61rem;font-weight:800;letter-spacing:.16em}.inquiry-form-head span:last-child{color:#8292a8;text-align:right}.inquiry-fields{display:grid;grid-template-columns:1fr 1fr;gap:15px}.inquiry-fields label{display:grid;gap:7px;color:#b9c7d8;font-size:.72rem;font-weight:700;letter-spacing:.02em}.inquiry-fields input,.inquiry-fields select,.inquiry-fields textarea{width:100%;min-width:0;border:1px solid #ffffff25;border-radius:2px;background:#101a2a;color:#f5f7fb;padding:12px 13px;font:500 .82rem 'DM Sans',sans-serif;outline:none;transition:border-color .2s,box-shadow .2s}.inquiry-fields input,.inquiry-fields select{height:46px}.inquiry-fields textarea{resize:vertical;min-height:86px;line-height:1.6}.inquiry-fields input::placeholder,.inquiry-fields textarea::placeholder{color:#718198}.inquiry-fields select:invalid{color:#718198}.inquiry-fields input:focus,.inquiry-fields select:focus,.inquiry-fields textarea:focus{border-color:#72e7ff;box-shadow:0 0 0 3px #72e7ff17}.inquiry-message{grid-column:1/-1}.inquiry-submit-row{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:18px}.inquiry-submit-row p{font-size:.68rem;line-height:1.55;color:#8798ae;margin:0;max-width:260px}.inquiry-submit-row .pill{border:0;cursor:pointer;white-space:nowrap;min-height:46px}
+@media(max-width:900px){.inquiry-top{grid-template-columns:1fr;width:calc(100% - 44px);gap:24px}.inquiry-intro h2{max-width:650px}.inquiry-meta{margin-top:18px}}
+@media(max-width:600px){.inquiry-top{width:calc(100% - 32px);margin-top:14px;padding:23px 17px;gap:20px}.inquiry-intro h2{font-size:2.65rem;margin:14px 0}.inquiry-intro p{font-size:.88rem}.inquiry-meta{font-size:.51rem;gap:8px 14px}.inquiry-form{padding:18px 14px}.inquiry-form-head{font-size:.52rem}.inquiry-fields{grid-template-columns:1fr;gap:12px}.inquiry-message{grid-column:auto}.inquiry-submit-row{align-items:stretch;flex-direction:column}.inquiry-submit-row p{max-width:none}.inquiry-submit-row .pill{width:100%}}
+
 </style>
 </head>
 <body><div id="pb-progress" aria-hidden="true"></div><div id="pb-cursor" aria-hidden="true"></div>
-<header><a class="brand" href="#">Promo<b>Bridge.</b></a><nav class="nav" id="pb-mobile-nav"><a href="#creator">Creator space</a><a href="#opportunity">For brands</a><a href="#how">How it works</a><a href="#chat">Private chat</a></nav><button class="mobile-menu-toggle" id="pb-menu-toggle" type="button" aria-controls="pb-mobile-nav" aria-expanded="false" aria-label="Open navigation"><span></span><span></span><span></span></button><div class="nav-actions"><a class="login" href="portal.html">Sign in</a><a class="pill" href="portal.html">Join PromoBridge <span>↗</span></a></div></header>
+<header><a class="brand" href="#">Promo<b>Bridge.</b></a><nav class="nav" id="pb-mobile-nav"><a href="#inquiry">Inquiry</a><a href="#creator">Creator space</a><a href="#opportunity">For brands</a><a href="#how">How it works</a><a href="#chat">Private chat</a></nav><button class="mobile-menu-toggle" id="pb-menu-toggle" type="button" aria-controls="pb-mobile-nav" aria-expanded="false" aria-label="Open navigation"><span></span><span></span><span></span></button><div class="nav-actions"><a class="login" href="portal.html">Sign in</a><a class="pill" href="portal.html">Join PromoBridge <span>↗</span></a></div></header>
 <main>
+<section class="wrap inquiry-top" id="inquiry" aria-labelledby="inquiry-title">
+ <div class="inquiry-intro">
+  <div class="eyebrow">START A CONVERSATION / PROMOBRIDGE</div>
+  <h2 id="inquiry-title">Have a collaboration in mind?</h2>
+  <p>Creators and businesses: tell us what you’re looking for. Send an enquiry directly to the PromoBridge team.</p>
+  <div class="inquiry-meta"><span><i></i> CREATOR & BUSINESS ENQUIRIES</span><span>RESPONSE VIA EMAIL</span></div>
+ </div>
+ <form class="inquiry-form" id="pb-inquiry-form">
+  <div class="inquiry-form-head"><span>01 / YOUR ENQUIRY</span><span>NO ACCOUNT REQUIRED</span></div>
+  <div class="inquiry-fields">
+   <label>Your name<input name="name" autocomplete="name" maxlength="90" placeholder="How should we address you?" required></label>
+   <label>Email address<input name="email" type="email" autocomplete="email" maxlength="150" placeholder="you@example.com" required></label>
+   <label>I’m enquiring as<select name="role" required><option value="">Choose one</option><option>Creator / Influencer</option><option>Business / Brand</option><option>Other</option></select></label>
+   <label>What is this about?<select name="topic" required><option value="">Select an enquiry type</option><option>Creator collaboration</option><option>Find creators for my business</option><option>Campaign or promotion</option><option>Account or portal support</option><option>Other enquiry</option></select></label>
+   <label class="inquiry-message">Tell us a little more<textarea name="message" rows="3" maxlength="1800" placeholder="Share your idea, requirements or question…" required></textarea></label>
+  </div>
+  <div class="inquiry-submit-row"><p id="pb-inquiry-status" role="status" aria-live="polite">Your email app will open with your enquiry ready to send.</p><button class="pill" type="submit">Prepare enquiry <span>↗</span></button></div>
+ </form>
+</section>
+
 <div class="wrap hero">
  <div class="hero-copy"><div class="eyebrow">A home for creator collaborations</div><h1>Your content.<br>Your community.<br><span>Your next move.</span></h1><p>You put time, ideas and personality into what you create. PromoBridge gives you a place to show your work, meet businesses and turn the right conversations into real collaborations.</p><div class="hero-actions"><a class="pill" href="portal.html">Step into your creator space ↗</a><a class="pill ghost" href="#creator">Explore the world ↓</a></div><div class="hero-proof"><div><strong>Creator-first</strong>Not another ad dashboard</div><div><strong>Direct connection</strong>Talk to brands privately</div><div><strong>Your terms</strong>Agree before you commit</div></div></div>
 
@@ -310,4 +339,7 @@ document.querySelectorAll('section,.ticker,.final-cta').forEach(el=>{el.classLis
 })();
 </script>
 
+<script>
+(()=>{const form=document.getElementById('pb-inquiry-form');if(!form)return;form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;const d=new FormData(form);const subject='PromoBridge enquiry — '+String(d.get('topic'));const body=['Name: '+d.get('name'),'Email: '+d.get('email'),'Enquiring as: '+d.get('role'),'Topic: '+d.get('topic'),'','Message:',d.get('message')].join('\\n');const link='mailto:singareaaditya111@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);document.getElementById('pb-inquiry-status').textContent='Opening your email app. Review the message and press Send to submit your enquiry.';window.location.href=link;});})();
+</script>
 </body></html>
