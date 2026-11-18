@@ -507,9 +507,30 @@ footer .footer-contact span{font-size:.62rem;letter-spacing:.18em;color:var(--cy
 @media(max-width:760px){.platform-enquiry{grid-template-columns:1fr;gap:18px;padding:22px 18px}.platform-enquiry .inquiry-email-link{width:100%;min-width:0}}
 @media(max-width:480px){.platform-enquiry{margin-top:30px;padding:19px 15px}.platform-enquiry .inquiry-intro h2{font-size:1.7rem}.platform-enquiry .inquiry-email-link{padding:14px}.platform-enquiry .inquiry-email-link strong{font-size:.78rem}}
 
+
+/* PROMOBRIDGE — LIVING ATMOSPHERE / CINEMATIC BACKGROUND */
+:root{--pb-pointer-x:52%;--pb-pointer-y:34%;--pb-scroll-depth:0}
+html{background:#050811}
+body{background:radial-gradient(ellipse at 50% -15%,#132a43 0%,#080d18 42%,#050811 78%);isolation:isolate}
+body:before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.68;background:radial-gradient(ellipse at var(--pb-pointer-x) var(--pb-pointer-y),#4fdcff17 0,transparent 31%),radial-gradient(ellipse at 8% 45%,#5e55d51a,transparent 36%),radial-gradient(ellipse at 92% 74%,#2b8db51a,transparent 34%),linear-gradient(180deg,#05081100,#05081188 85%)}
+.pb-atmosphere{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;contain:strict;opacity:.92}
+.pb-aurora{position:absolute;display:block;width:72vw;height:62vw;max-height:780px;max-width:1100px;border-radius:50%;filter:blur(82px);opacity:.15;will-change:transform}
+.pb-aurora-one{top:-30%;left:-23%;background:conic-gradient(from 40deg,#50dfff00,#45b8e9 18%,#6475ff 35%,#8d5bff00 56%,#50dfff00 75%);animation:pbAuroraDrift 27s ease-in-out infinite alternate}
+.pb-aurora-two{right:-27%;top:20%;background:conic-gradient(from 210deg,#6b6dff00,#6b6dff 18%,#47d7e8 38%,#4b7bff00 64%,#6b6dff00 80%);animation:pbAuroraDriftTwo 33s ease-in-out infinite alternate}
+.pb-light-ribbon{position:absolute;width:150vw;height:42vw;left:-25vw;top:31%;border:1px solid #83eaff0c;border-radius:50%;transform:rotate(-19deg);box-shadow:0 0 90px #50cfff0a,inset 0 0 65px #7d75ff08}
+.pb-light-ribbon:before,.pb-light-ribbon:after{content:"";position:absolute;inset:8% 4%;border:1px solid #9e9bff0a;border-radius:50%;transform:rotate(7deg)}
+.pb-light-ribbon:after{inset:18% 11%;border-color:#78eaff0b;transform:rotate(-4deg)}
+.pb-starfield{position:absolute;inset:0;opacity:.28;background-image:radial-gradient(1px 1px at 7% 19%,#d9f7ff 99%,transparent),radial-gradient(1px 1px at 18% 72%,#a7bfff 99%,transparent),radial-gradient(1.5px 1.5px at 31% 38%,#d9f7ff 99%,transparent),radial-gradient(1px 1px at 47% 12%,#c3d8ff 99%,transparent),radial-gradient(1px 1px at 64% 63%,#d9f7ff 99%,transparent),radial-gradient(1.5px 1.5px at 78% 27%,#b4c7ff 99%,transparent),radial-gradient(1px 1px at 91% 81%,#d9f7ff 99%,transparent);background-size:100% 100%}
+@keyframes pbAuroraDrift{from{transform:translate3d(-4%,0,0) rotate(-15deg) scale(.9)}to{transform:translate3d(18%,17%,0) rotate(24deg) scale(1.18)}}
+@keyframes pbAuroraDriftTwo{from{transform:translate3d(5%,-4%,0) rotate(12deg) scale(1.05)}to{transform:translate3d(-16%,12%,0) rotate(-25deg) scale(.88)}}
+main,header,footer{position:relative;z-index:1}
+#pb-progress,#pb-cursor{z-index:70}
+@media(max-width:700px){.pb-aurora{width:115vw;height:100vw;filter:blur(65px);opacity:.12}.pb-aurora-one{top:-12%;left:-50%}.pb-aurora-two{right:-65%;top:34%}.pb-light-ribbon{top:38%;height:80vw;width:190vw;left:-45vw;opacity:.6}.pb-starfield{opacity:.17}}
+@media(prefers-reduced-motion:reduce){.pb-aurora-one,.pb-aurora-two{animation:none!important}}
+
 </style>
 </head>
-<body><div id="pb-progress" aria-hidden="true"></div><div id="pb-cursor" aria-hidden="true"></div>
+<body><div class="pb-atmosphere" aria-hidden="true"><span class="pb-aurora pb-aurora-one"></span><span class="pb-aurora pb-aurora-two"></span><span class="pb-light-ribbon"></span><span class="pb-starfield"></span></div><div id="pb-progress" aria-hidden="true"></div><div id="pb-cursor" aria-hidden="true"></div>
 <header class="pb-site-header"><a class="brand" href="#" aria-label="PromoBridge home">Promo<b>Bridge.</b></a><nav class="nav" id="pb-mobile-nav" aria-label="Main navigation"><a href="#inquiry">Inquiry</a><a href="#creator">Creator space</a><a href="#opportunity">For brands</a><a href="#how">How it works</a><a href="#chat">Private chat</a><a class="mobile-nav-account" href="portal.html">Sign in to your account ↗</a><a class="mobile-nav-account mobile-nav-join" href="portal.html">Join PromoBridge ↗</a></nav><div class="nav-actions"><a class="login" href="portal.html">Sign in</a><a class="pill" href="portal.html">Join PromoBridge <span>↗</span></a></div><button class="mobile-menu-toggle" id="pb-menu-toggle" type="button" aria-controls="pb-mobile-nav" aria-expanded="false" aria-label="Open navigation"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></button></header>
 <main>
 
@@ -680,6 +701,20 @@ document.querySelectorAll('section,.ticker,.final-cta').forEach(el=>{el.classLis
   desc.textContent=copy[key][1];count.innerHTML=String(index+1).padStart(2,"0")+" <b>/</b> 07";
   const core=document.querySelector(".platform-core");core.animate([{transform:"scale(.94)",opacity:.7},{transform:"scale(1)",opacity:1}],{duration:420,easing:"cubic-bezier(.16,1,.3,1)"});
  }));
+})();
+</script>
+
+
+<script>
+(()=> {
+ const root=document.documentElement;
+ let raf=0,lastX=52,lastY=34;
+ const move=e=>{
+  lastX=(e.clientX/innerWidth*100).toFixed(1);
+  lastY=(e.clientY/innerHeight*100).toFixed(1);
+  if(!raf)raf=requestAnimationFrame(()=>{root.style.setProperty('--pb-pointer-x',lastX+'%');root.style.setProperty('--pb-pointer-y',lastY+'%');raf=0});
+ };
+ if(matchMedia('(hover:hover) and (pointer:fine)').matches)addEventListener('pointermove',move,{passive:true});
 })();
 </script>
 
