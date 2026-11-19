@@ -1022,7 +1022,7 @@ document.querySelectorAll('section,.ticker,.final-cta').forEach(el=>{el.classLis
  modeButtons.forEach(button=>button.addEventListener("click",()=>{
   mode=button.dataset.mode;if(!modes[mode])return;
   modeButtons.forEach(b=>{const active=b===button;b.classList.toggle("is-active",active);b.setAttribute("aria-pressed",String(active))});
-  hint.textContent=modes[mode].hint;status.textContent=modes[mode].lead+" / SELECT A CHANNEL";
+  hint.textContent=modes[mode].hint;status.innerHTML="<i></i>"+modes[mode].lead+" / SELECT A CHANNEL";
   selectPlatform(selected);
  }));
  const section=document.getElementById("platform-signal");
