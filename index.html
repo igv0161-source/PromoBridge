@@ -790,6 +790,14 @@ a:focus-visible,button:focus-visible{outline-color:#72e7ff!important}#pb-cursor{
 @media(prefers-reduced-motion:reduce){.signal-path.is-active{animation:none}.platform-mode-button,.signal-path{transition:none}}
 </style>
 
+<style id="promobridge-orbit-connection-alignment">
+/* Connection endpoints are calculated from each node's actual rendered position. */
+.platform-connections{z-index:2}
+.platform-core{z-index:3}
+.platform-node{z-index:4}
+.signal-path{stroke-linecap:round}
+@media(prefers-reduced-motion:reduce){.signal-path.is-active{animation:none}}
+</style>
 </head>
 <body><div class="pb-atmosphere" aria-hidden="true"><span class="pb-aurora pb-aurora-one"></span><span class="pb-aurora pb-aurora-two"></span><span class="pb-light-ribbon"></span><span class="pb-starfield"></span></div><div id="pb-progress" aria-hidden="true"></div><div id="pb-cursor" aria-hidden="true"></div>
 <header class="pb-site-header"><a class="brand" href="#" aria-label="PromoBridge home">Promo<b>Bridge.</b></a><nav class="nav" id="pb-mobile-nav" aria-label="Main navigation"><a href="#inquiry">Inquiry</a><a href="#creator">Creator space</a><a href="#opportunity">For brands</a><a href="#how">How it works</a><a href="#chat">Private chat</a><a class="mobile-nav-account" href="portal.html">Sign in to your account ↗</a><a class="mobile-nav-account mobile-nav-join" href="portal.html">Join PromoBridge ↗</a></nav><div class="nav-actions"><a class="login" href="portal.html">Sign in</a><a class="pill" href="portal.html">Join PromoBridge <span>↗</span></a></div><button class="mobile-menu-toggle" id="pb-menu-toggle" type="button" aria-controls="pb-mobile-nav" aria-expanded="false" aria-label="Open navigation"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></button></header>
@@ -857,13 +865,13 @@ a:focus-visible,button:focus-visible{outline-color:#72e7ff!important}#pb-cursor{
  <div class="platform-orbit" aria-label="Interactive social media platform network">
   <svg class="platform-connections" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true">
    <defs><linearGradient id="pbSignalGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#72e7ff"/><stop offset="1" stop-color="#9b8cff"/></linearGradient></defs>
-   <path class="signal-path" data-connect="instagram" d="M500 300 Q330 165 120 60"/>
-   <path class="signal-path" data-connect="tiktok" d="M500 300 Q680 150 880 55"/>
-   <path class="signal-path" data-connect="youtube" d="M500 300 Q760 275 960 260"/>
-   <path class="signal-path" data-connect="facebook" d="M500 300 Q700 470 850 550"/>
-   <path class="signal-path" data-connect="linkedin" d="M500 300 Q300 470 150 550"/>
-   <path class="signal-path" data-connect="pinterest" d="M500 300 Q230 285 40 260"/>
-   <path class="signal-path" data-connect="x" d="M500 300 L500 30"/>
+   <path class="signal-path" data-connect="instagram"/>
+   <path class="signal-path" data-connect="tiktok"/>
+   <path class="signal-path" data-connect="youtube"/>
+   <path class="signal-path" data-connect="facebook"/>
+   <path class="signal-path" data-connect="linkedin"/>
+   <path class="signal-path" data-connect="pinterest"/>
+   <path class="signal-path" data-connect="x"/>
   </svg>
   <div class="orbit-progress" aria-hidden="true"><span></span></div>
   <div class="orbit-line orbit-line-one" aria-hidden="true"></div><div class="orbit-line orbit-line-two" aria-hidden="true"></div>
@@ -1004,6 +1012,40 @@ document.querySelectorAll('section,.ticker,.final-cta').forEach(el=>{el.classLis
  const status=document.querySelector(".platform-status");
  const hint=document.getElementById("platform-mode-hint");
  const modeButtons=[...document.querySelectorAll(".platform-mode-button")];
+ const orbit=document.querySelector(".platform-orbit");
+ const connectionSvg=orbit?.querySelector(".platform-connections");
+ const positionConnections=()=>{
+  if(!orbit||!connectionSvg)return;
+  const box=orbit.getBoundingClientRect();
+  const core=orbit.querySelector(".platform-core");
+  if(!box.width||!box.height||!core)return;
+  const c=core.getBoundingClientRect();
+  const cx=(c.left+c.width/2-box.left)/box.width*1000;
+  const cy=(c.top+c.height/2-box.top)/box.height*600;
+  const coreRadius=Math.min(c.width,c.height)/2;
+  nodes.forEach(node=>{
+   const key=node.dataset.platform;
+   const path=connectionSvg.querySelector('[data-connect="'+key+'"]');
+   if(!path)return;
+   const b=node.getBoundingClientRect();
+   const nx=(b.left+b.width/2-box.left)/box.width*1000;
+   const ny=(b.top+b.height/2-box.top)/box.height*600;
+   const dx=nx-cx,dy=ny-cy,length=Math.hypot(dx,dy)||1;
+   const nodeRadius=Math.min(Math.hypot(b.width/2,b.height/2),length*.32);
+   const startX=cx+dx/length*(coreRadius/box.width*1000+5);
+   const startY=cy+dy/length*(coreRadius/box.height*600+5);
+   const endX=nx-dx/length*(nodeRadius/box.width*1000+4);
+   const endY=ny-dy/length*(nodeRadius/box.height*600+4);
+   const bend=Math.min(42,length*.13);
+   const midX=(startX+endX)/2-dy/length*bend;
+   const midY=(startY+endY)/2+dx/length*bend;
+   path.setAttribute("d","M "+startX.toFixed(1)+" "+startY.toFixed(1)+" Q "+midX.toFixed(1)+" "+midY.toFixed(1)+" "+endX.toFixed(1)+" "+endY.toFixed(1));
+  });
+ };
+ let connectionFrame=0;
+ const scheduleConnections=()=>{cancelAnimationFrame(connectionFrame);connectionFrame=requestAnimationFrame(positionConnections)};
+ if(window.ResizeObserver&&orbit){const observer=new ResizeObserver(scheduleConnections);observer.observe(orbit);nodes.forEach(n=>observer.observe(n));observer.observe(orbit.querySelector(".platform-core"))}
+ addEventListener("load",scheduleConnections,{once:true});
  let mode="creator",selected="instagram";
  const selectPlatform=(key)=>{
   const index=nodes.findIndex(n=>n.dataset.platform===key);
@@ -1011,6 +1053,7 @@ document.querySelectorAll('section,.ticker,.final-cta').forEach(el=>{el.classLis
   selected=key;
   nodes.forEach(n=>{const active=n.dataset.platform===key;n.classList.toggle("is-selected",active);n.setAttribute("aria-pressed",String(active))});
   paths.forEach(p=>p.classList.toggle("is-active",p.dataset.connect===key));
+  scheduleConnections();
   title.textContent=copy[key][0];
   coreCopy.textContent=modes[mode].core;
   desc.textContent=(mode==="creator"?"For creators: ":"For brands: ")+copy[key][1];
