@@ -767,6 +767,29 @@ a:focus-visible,button:focus-visible{outline-color:#72e7ff!important}#pb-cursor{
 @media(prefers-reduced-motion:reduce){.core-pulse{animation:none!important}}
 </style>
 
+<style id="promobridge-social-universe-living-network">
+/* Living network: connected paths, real creator/brand perspective toggle, scroll progress. */
+.platform-mode{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 24px;padding:14px 16px;border:1px solid #72e7ff26;background:linear-gradient(100deg,#101b2cdd,#101326cc)}
+.platform-mode-label{font-size:.56rem;letter-spacing:.16em;color:#8fa4bc;margin-right:5px}
+.platform-mode-button{border:1px solid #72e7ff40;background:#0a1220;color:#aebdca;padding:10px 14px;font:700 .62rem 'DM Sans',sans-serif;letter-spacing:.1em;cursor:pointer;transition:background .25s,border-color .25s,color .25s,transform .25s}
+.platform-mode-button.is-active{background:linear-gradient(100deg,#72e7ff20,#9b8cff20);border-color:#72e7ff;color:#edf4fb;box-shadow:0 0 24px #72e7ff12}
+.platform-mode-button:active{transform:scale(.96)}
+.platform-mode-button:focus-visible{outline:2px solid #72e7ff;outline-offset:4px}
+.platform-mode-hint{font-size:.7rem;color:#aebdca;margin-left:auto}
+.platform-orbit{overflow:hidden}
+.platform-connections{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:visible}
+.signal-path{fill:none;stroke:url(#pbSignalGradient);stroke-width:1.7;stroke-dasharray:7 12;stroke-dashoffset:0;opacity:.28;transition:opacity .35s,stroke-width .35s,filter .35s;vector-effect:non-scaling-stroke}
+.signal-path.is-active{opacity:1;stroke-width:3;filter:drop-shadow(0 0 5px #72e7ff);animation:pbSignalFlow 2.8s linear infinite}
+@keyframes pbSignalFlow{to{stroke-dashoffset:-76}}
+.platform-core{z-index:3}
+.platform-node{z-index:4}
+.orbit-progress{position:absolute;z-index:5;left:0;right:0;bottom:0;height:2px;background:#ffffff10;pointer-events:none}
+.orbit-progress span{display:block;width:100%;height:100%;background:linear-gradient(90deg,#72e7ff,#9b8cff);transform:scaleX(var(--network-scroll,0));transform-origin:left;box-shadow:0 0 12px #72e7ff70}
+.platform-signal .platform-status{transition:color .25s}
+@media(max-width:800px){.platform-mode{gap:8px}.platform-mode-label{width:100%}.platform-mode-hint{width:100%;margin:3px 0 0}}
+@media(prefers-reduced-motion:reduce){.signal-path.is-active{animation:none}.platform-mode-button,.signal-path{transition:none}}
+</style>
+
 </head>
 <body><div class="pb-atmosphere" aria-hidden="true"><span class="pb-aurora pb-aurora-one"></span><span class="pb-aurora pb-aurora-two"></span><span class="pb-light-ribbon"></span><span class="pb-starfield"></span></div><div id="pb-progress" aria-hidden="true"></div><div id="pb-cursor" aria-hidden="true"></div>
 <header class="pb-site-header"><a class="brand" href="#" aria-label="PromoBridge home">Promo<b>Bridge.</b></a><nav class="nav" id="pb-mobile-nav" aria-label="Main navigation"><a href="#inquiry">Inquiry</a><a href="#creator">Creator space</a><a href="#opportunity">For brands</a><a href="#how">How it works</a><a href="#chat">Private chat</a><a class="mobile-nav-account" href="portal.html">Sign in to your account ↗</a><a class="mobile-nav-account mobile-nav-join" href="portal.html">Join PromoBridge ↗</a></nav><div class="nav-actions"><a class="login" href="portal.html">Sign in</a><a class="pill" href="portal.html">Join PromoBridge <span>↗</span></a></div><button class="mobile-menu-toggle" id="pb-menu-toggle" type="button" aria-controls="pb-mobile-nav" aria-expanded="false" aria-label="Open navigation"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></button></header>
@@ -825,7 +848,24 @@ a:focus-visible,button:focus-visible{outline-color:#72e7ff!important}#pb-cursor{
   <div><div class="eyebrow">ONE CREATOR. MANY CHANNELS.</div><h2 id="platform-title">Your world.<br><span>Every platform.</span></h2></div>
   <p>Your content moves across different communities. Explore the channels creators use to tell stories, build audiences and start conversations.</p>
  </div>
- <div class="platform-orbit" aria-label="Interactive social media platform selector">
+ <div class="platform-mode" role="group" aria-label="Choose your perspective">
+  <span class="platform-mode-label">EXPLORE THE NETWORK AS</span>
+  <button type="button" class="platform-mode-button is-active" data-mode="creator" aria-pressed="true">A CREATOR</button>
+  <button type="button" class="platform-mode-button" data-mode="brand" aria-pressed="false">A BRAND</button>
+  <span class="platform-mode-hint" id="platform-mode-hint" aria-live="polite">Your voice connects with communities.</span>
+ </div>
+ <div class="platform-orbit" aria-label="Interactive social media platform network">
+  <svg class="platform-connections" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true">
+   <defs><linearGradient id="pbSignalGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#72e7ff"/><stop offset="1" stop-color="#9b8cff"/></linearGradient></defs>
+   <path class="signal-path" data-connect="instagram" d="M500 300 Q330 165 120 60"/>
+   <path class="signal-path" data-connect="tiktok" d="M500 300 Q680 150 880 55"/>
+   <path class="signal-path" data-connect="youtube" d="M500 300 Q760 275 960 260"/>
+   <path class="signal-path" data-connect="facebook" d="M500 300 Q700 470 850 550"/>
+   <path class="signal-path" data-connect="linkedin" d="M500 300 Q300 470 150 550"/>
+   <path class="signal-path" data-connect="pinterest" d="M500 300 Q230 285 40 260"/>
+   <path class="signal-path" data-connect="x" d="M500 300 L500 30"/>
+  </svg>
+  <div class="orbit-progress" aria-hidden="true"><span></span></div>
   <div class="orbit-line orbit-line-one" aria-hidden="true"></div><div class="orbit-line orbit-line-two" aria-hidden="true"></div>
   <div class="platform-core"><span class="core-pulse"></span><small>PROMOBRIDGE / SIGNAL</small><strong id="platform-core-title">CREATOR<br>ECOSYSTEM</strong><span id="platform-core-copy">Choose a channel<br>to explore its role.</span></div>
   <button class="platform-node platform-instagram is-selected" type="button" data-platform="instagram" aria-pressed="true" aria-label="Instagram"><span class="platform-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.7" r="1" class="fill"/></svg></span><span class="platform-name">Instagram</span><span class="platform-kind">VISUAL STORIES</span></button>
@@ -951,16 +991,53 @@ document.querySelectorAll('section,.ticker,.final-cta').forEach(el=>{el.classLis
   pinterest:["DISCOVERY THROUGH IDEAS","Pinterest helps visual ideas travel through inspiration, collections and planning."],
   x:["THE LIVE CONVERSATION","X is built around timely ideas, commentary and conversations that move quickly."]
  };
+ const modes={
+  creator:{hint:"Your voice connects with communities.",lead:"CREATOR VIEW",core:"A channel for your voice."},
+  brand:{hint:"Your brief finds the communities that matter.",lead:"BRAND VIEW",core:"A channel for your campaign."}
+ };
  const nodes=[...document.querySelectorAll(".platform-node")];
- const title=document.getElementById("platform-core-title"),desc=document.getElementById("platform-description"),count=document.querySelector(".platform-count");
- nodes.forEach((node,index)=>node.addEventListener("click",()=>{
-  const key=node.dataset.platform;if(!copy[key])return;
-  nodes.forEach(n=>{const active=n===node;n.classList.toggle("is-selected",active);n.setAttribute("aria-pressed",String(active))});
-  title.innerHTML=copy[key][0].replaceAll(" ","<br>");
-  document.getElementById("platform-core-copy").textContent="A channel for your voice.";
-  desc.textContent=copy[key][1];count.innerHTML=String(index+1).padStart(2,"0")+" <b>/</b> 07";
-  const core=document.querySelector(".platform-core");core.animate([{transform:"scale(.94)",opacity:.7},{transform:"scale(1)",opacity:1}],{duration:420,easing:"cubic-bezier(.16,1,.3,1)"});
+ const paths=[...document.querySelectorAll(".signal-path")];
+ const title=document.getElementById("platform-core-title");
+ const coreCopy=document.getElementById("platform-core-copy");
+ const desc=document.getElementById("platform-description");
+ const count=document.querySelector(".platform-count");
+ const status=document.querySelector(".platform-status");
+ const hint=document.getElementById("platform-mode-hint");
+ const modeButtons=[...document.querySelectorAll(".platform-mode-button")];
+ let mode="creator",selected="instagram";
+ const selectPlatform=(key)=>{
+  const index=nodes.findIndex(n=>n.dataset.platform===key);
+  if(index<0||!copy[key])return;
+  selected=key;
+  nodes.forEach(n=>{const active=n.dataset.platform===key;n.classList.toggle("is-selected",active);n.setAttribute("aria-pressed",String(active))});
+  paths.forEach(p=>p.classList.toggle("is-active",p.dataset.connect===key));
+  title.textContent=copy[key][0];
+  coreCopy.textContent=modes[mode].core;
+  desc.textContent=(mode==="creator"?"For creators: ":"For brands: ")+copy[key][1];
+  count.innerHTML=String(index+1).padStart(2,"0")+" <b>/</b> 07";
+  const core=document.querySelector(".platform-core");
+  if(core&&core.animate&&!matchMedia("(prefers-reduced-motion: reduce)").matches)core.animate([{transform:"scale(.94)",opacity:.7},{transform:"scale(1)",opacity:1}],{duration:420,easing:"cubic-bezier(.16,1,.3,1)"});
+ };
+ nodes.forEach(node=>node.addEventListener("click",()=>selectPlatform(node.dataset.platform)));
+ modeButtons.forEach(button=>button.addEventListener("click",()=>{
+  mode=button.dataset.mode;if(!modes[mode])return;
+  modeButtons.forEach(b=>{const active=b===button;b.classList.toggle("is-active",active);b.setAttribute("aria-pressed",String(active))});
+  hint.textContent=modes[mode].hint;status.textContent=modes[mode].lead+" / SELECT A CHANNEL";
+  selectPlatform(selected);
  }));
+ const section=document.getElementById("platform-signal");
+ let ticking=false;
+ const updateProgress=()=>{
+  if(!section)return;
+  const rect=section.getBoundingClientRect();
+  const travel=rect.height-innerHeight;
+  const progress=travel>0?Math.max(0,Math.min(1,-rect.top/travel)):(rect.top<0?1:0);
+  section.style.setProperty("--network-scroll",progress.toFixed(3));
+  ticking=false;
+ };
+ addEventListener("scroll",()=>{if(!ticking){ticking=true;requestAnimationFrame(updateProgress)}},{passive:true});
+ addEventListener("resize",updateProgress,{passive:true});
+ updateProgress();selectPlatform("instagram");
 })();
 </script>
 
